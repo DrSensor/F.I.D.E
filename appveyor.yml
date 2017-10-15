@@ -15,6 +15,10 @@ artifacts:
     name: build_result
     type: zip
 
+environment:
+  GH_TOKEN:
+    secure: zAotNV6A49wroh2Rx0M5idFwfDz1tCzo0Rklar8KIe/mjnv8jFdoMIVBnMMUAiIY
+
 cache:
   - node_modules
   - '%APPDATA%\npm-cache'

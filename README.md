@@ -1,4 +1,11 @@
 # F.I.D.E
+[![Build Status](https://travis-ci.org/DrSensor/F.I.D.E.svg?branch=master)](https://travis-ci.org/DrSensor/F.I.D.E)
+[![Build status](https://ci.appveyor.com/api/projects/status/mjefjrnm444kt1rr?svg=true)](https://ci.appveyor.com/project/DrSensor/f-i-d-e)
+
+<p align="center">
+    <img src="build/icons/256x256.png" alt="Field IoT Data/Device Explorer">
+</p>
+
 ## Field IoT Data/Device Explorer
 
 <!-- Insert LOGO HERE -->

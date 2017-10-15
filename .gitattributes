@@ -1,0 +1,7 @@
+*.png filter=lfs diff=lfs merge=lfs -text lockable
+*.jpg filter=lfs diff=lfs merge=lfs -text lockable
+*.ico filter=lfs diff=lfs merge=lfs -text lockable
+*.icns filter=lfs diff=lfs merge=lfs -text lockable
+
+.travis.yml lockable
+appveyor.yml lockable
