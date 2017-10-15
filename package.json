@@ -22,8 +22,8 @@
     "postinstall": "npm run lint:fix"
   },
   "build": {
-    "productName": "f.i.d.e",
-    "appId": "org.simulatedgreg.electron-vue",
+    "productName": "F.I.D.E",
+    "appId": "gdn.sensorfied.fide",
     "directories": {
       "output": "build"
     },
@@ -49,10 +49,12 @@
       "icon": "build/icons/icon.icns"
     },
     "win": {
-      "icon": "build/icons/icon.ico"
+      "icon": "build/icons/icon.ico",
+      "target": ["appx", "nsis"]
     },
     "linux": {
-      "icon": "build/icons"
+      "icon": "build/icons",
+      "target": ["AppImage", "deb"]
     }
   },
   "dependencies": {
