@@ -51,7 +51,7 @@
     components: { SystemInformation },
     methods: {
       open (link) {
-        require('electron').shell.openExternal(link)
+        // require('electron').shell.openExternal(link)
       }
     }
   }

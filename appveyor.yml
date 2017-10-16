@@ -13,6 +13,9 @@ platform:
 artifacts:
   - path: build/*.appx
   - path: build/*.exe
+  - path: dist/web
+    name: web
+    type: zip
 
 environment:
   GH_TOKEN:
@@ -36,6 +39,7 @@ install:
 
 build_script:
   #- yarn test
+  - yarn build:web
   - yarn build
 
 test: off
