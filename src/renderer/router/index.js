@@ -3,17 +3,29 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
+const Page = (filename) => import(`@/pages/${filename}`)
+
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'welcome-view',
-      component: require('@/components/WelcomeView')
+      path: '/explorer',
+      name: 'File Manager',
+      component: () => Page('FileManager'),
+      meta: {
+        icon: 'view_compact'
+      }
     },
     {
-      path: '/inspire',
-      name: 'inspire',
-      component: require('@/components/InspireView')
+      path: '/view',
+      name: 'View File',
+      component: () => Page('FileViewer'),
+      meta: {
+        icon: 'pageview'
+      }
+    },
+    {
+      path: '/',
+      component: () => Page('Welcome')
     },
     {
       path: '*',

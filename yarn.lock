@@ -4033,6 +4033,12 @@ ieee754@^1.1.4:
   version "1.1.8"
   resolved "https://registry.yarnpkg.com/ieee754/-/ieee754-1.1.8.tgz#be33d40ac10ef1926701f6f08a2d86fbfd1ad3e4"
 
+ifdef-loader@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/ifdef-loader/-/ifdef-loader-2.0.3.tgz#f63c9c775029e2a59aef1cee341a0edb10598ec8"
+  dependencies:
+    loader-utils "^1.1.0"
+
 ignore@^3.3.3:
   version "3.3.5"
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-3.3.5.tgz#c4e715455f6073a8d7e5dae72d2fc9d71663dba6"
