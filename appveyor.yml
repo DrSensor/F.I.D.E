@@ -11,9 +11,8 @@ platform:
   - x64
 
 artifacts:
-  - path: build
-    name: build_result
-    type: zip
+  - path: build/*.appx
+  - path: build/*.exe
 
 environment:
   GH_TOKEN:

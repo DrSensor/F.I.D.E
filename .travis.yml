@@ -34,6 +34,8 @@ install:
 - source ~/.bashrc
 - npm install -g xvfb-maybe
 - yarn
+before_script:
+  - git lfs pull
 script:
 #- xvfb-maybe node_modules/.bin/karma start test/unit/karma.conf.js
 #- yarn run pack && xvfb-maybe node_modules/.bin/mocha test/e2e
