@@ -61,6 +61,7 @@
     },
     "linux": {
       "icon": "build/icons",
+      "category": "ProjectManagement",
       "target": [
         "AppImage",
         "deb"
@@ -124,6 +125,7 @@
     "multispinner": "^0.2.1",
     "node-loader": "^0.6.0",
     "require-dir": "^0.3.0",
+    "rollbar": "^2.2.10",
     "spectron": "^3.7.1",
     "style-loader": "^0.18.2",
     "stylus": "^0.54.5",

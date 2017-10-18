@@ -4,7 +4,7 @@ import Vuetify from 'vuetify'
 
 import App from './App'
 import router from './router'
-// import store from './store'
+import store from './store'
 
 Vue.use(Vuetify)
 Vue.http = Vue.prototype.$http = axios
@@ -14,6 +14,6 @@ Vue.config.productionTip = false
 new Vue({
   components: { App },
   router,
-  // store,
+  store,
   template: '<App/>'
 }).$mount('#app')

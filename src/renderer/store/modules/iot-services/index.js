@@ -1,8 +1,10 @@
+import store from './store'
+import mutations from './mutations'
+
 /**
  * The file enables `@/store/index.js` to import all vuex modules
- * in a one-shot manner. There should not be any reason to edit this file.
+ * in a one-shot manner. There should not be any reason to edit this SECTION.
  */
-
 const files = require.context('.', true, /\.js$/)
 const path = require('path')
 const modules = {}
@@ -16,5 +18,11 @@ files.keys().forEach(key => {
     modules[modulename[0]] = files(key).default
   }
 })
+/* END OF SECTION */
 
-export default modules
+export default {
+  namespaced: true,
+  ...store,
+  ...mutations,
+  modules
+}
