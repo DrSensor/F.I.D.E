@@ -1,14 +1,21 @@
-import Rollbar from 'rollbar'
+import LogRocket from 'logrocket'
 
 const config = {
-  accessToken: process.env.ROLLBAR_TOKEN,
-  captureUncaught: true,
-  captureUnhandledRejections: true,
-  verbose: process.env.NODE_ENV === 'development',
-  enabled: process.env.NODE_ENV === 'production',
-  payload: {
-    environment: process.env.NODE_ENV
+  // release: '0.0.0',
+  console: {
+    isEnabled: {
+      log: false,
+      debug: false
+    }
+  },
+  dom: {
+    isEnabled: false,
+    baseHref: 'https://fide.surge.sh/assets/'
   }
 }
 
-export default new Rollbar(config)
+if (process.env.NODE_ENV === 'production') {
+  LogRocket.init(process.env.LOGROCKET_APPID, config)
+}
+
+export default LogRocket
