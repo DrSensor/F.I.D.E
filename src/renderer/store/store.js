@@ -1,8 +1,8 @@
 const STORE_STATE = {
   error_detail: {
-    id: Number,
-    message: String,
-    meta: Object
+    id: 0,
+    message: '',
+    meta: {}
   },
   requesting: false
 }

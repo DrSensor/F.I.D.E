@@ -1,11 +1,12 @@
 import { openDirectory } from '@/services/local-files/project'
 import { openFolder } from '@/services/local-files/folder'
-import { getThumbnailByExtension, getExtension } from '@/utils/files'
-import { lstatSync } from 'fs'
-import { join } from 'path'
-
-const isDirectory = source => lstatSync(source).isDirectory()
-const isFile = source => lstatSync(source).isFile()
+import {
+  getThumbnailByExtension,
+  getExtension,
+  isDirectory,
+  isFile
+} from '@/utils/files'
+import { join, parse } from 'path'
 
 const split2FoldersFiles = (content, source) => {
   return {
@@ -31,16 +32,32 @@ const split2FoldersFiles = (content, source) => {
 
 export default {
   namespaced: true,
-  actions: {
-    openProject ({ state, commit }) {
-      const FMcommit = (mutationType, payload) => commit(`fileManagers/${mutationType}`, payload, { root: true })
-      let path = window.localStorage.getItem('active_project_path')
 
+  actions: {
+    openProject ({ state, commit, dispatch }, uri) {
+      const FMcommit = (mutationType, payload) => commit(`fileManagers/${mutationType}`, payload, { root: true })
+      const open = function (openFunc, path) {
+        openFunc(path).then(({ content, source }) => {
+          let pathsByType = split2FoldersFiles(content, source)
+          let projectDetail = {
+            projectName: parse(source).name,
+            origin: 'local-files',
+            uri: new URL(source, 'file://').href
+          }
+          FMcommit('OPENING_PROJECT]finish', {
+            project: projectDetail,
+            ...pathsByType
+          })
+        }).catch(error => FMcommit('OPENING]cancel', error.stack))
+      }
+
+      let path = window.localStorage.getItem('active_project_path')
       FMcommit('OPENING]loading')
-      openDirectory(path).then(({ content, source }) => {
-        let pathsByType = split2FoldersFiles(content, source)
-        FMcommit('OPENING_PROJECT]finish', pathsByType)
-      }).catch(error => FMcommit('OPENING]cancel', error.stack))
+      if (uri) {
+        open(openFolder, uri.replace('file://', ''))
+      } else {
+        open(openDirectory, path)
+      }
     },
 
     openFolder ({ state, commit }, uri) {
@@ -51,9 +68,20 @@ export default {
         let path = uri.replace('file://', '')
         openFolder(path).then(({ content, source }) => {
           let pathsByType = split2FoldersFiles(content, source)
-          FMcommit('OPENING_FOLDER]finish', pathsByType)
+          let origin = {
+            name: parse(source).name,
+            uri: new URL(source, 'file://').href
+          }
+          FMcommit('OPENING_FOLDER]finish', {
+            origin: origin,
+            ...pathsByType
+          })
         }).catch(error => FMcommit('OPENING]cancel', error.stack))
       } else FMcommit('OPENING]cancel', `uri is not local-file, ${uri}`)
+    },
+
+    closeFolder ({ state, commit }, uri) {
+      commit('fileManagers/CLOSE_FOLDER', uri, { root: true })
     },
 
     openFile () {
