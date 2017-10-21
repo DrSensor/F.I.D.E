@@ -1,15 +1,13 @@
 <template>
   <div id="app">
     <v-app dark>
-      <left-sidebar :toggle='sidebar'></left-sidebar>
-      <header-toolbar @show-sidebar='val => { sidebar = val }'></header-toolbar>
+      <LeftSidebar :toggle='sidebar'/>
+      <HeaderToolbar @show-sidebar='val => { sidebar = val }'/>
       <main>
         <v-content>
-          <v-container fluid fill-height>
-            <v-slide-y-transition mode="out-in">
-              <router-view></router-view>
-            </v-slide-y-transition>
-          </v-container>
+          <v-slide-y-transition mode="out-in">
+            <router-view></router-view>
+          </v-slide-y-transition>
         </v-content>
       </main>
     </v-app>
@@ -43,6 +41,6 @@ export default {
 
 
 <style>
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons');
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons");
 /* Global CSS */
 </style>

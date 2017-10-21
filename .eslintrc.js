@@ -13,7 +13,8 @@ module.exports = {
     __static: true
   },
   plugins: [
-    'html'
+    'html',
+    'vue'
   ],
   'rules': {
     // allow paren-less arrow functions
