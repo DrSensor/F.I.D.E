@@ -1,4 +1,4 @@
-import inRange from 'lodash/inRange'
+import { inRange } from 'lodash'
 
 const STORE_STATE = {
   opening: false,

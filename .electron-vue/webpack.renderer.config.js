@@ -20,6 +20,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
  */
 let whiteListedModules = ['vue']
 
+const base = path.resolve(__dirname, '../')
+const resolve = p => path.resolve(base, p)
+
 let rendererConfig = {
   devtool: '#cheap-module-eval-source-map',
   entry: {
@@ -40,6 +43,15 @@ let rendererConfig = {
             formatter: require('eslint-friendly-formatter')
           }
         }
+      },
+      {
+        test: /\.styl$/,
+        loader: ['style-loader', 'css-loader', 'stylus-loader', {
+          loader: 'vuetify-loader',
+          options: {
+            theme: resolve('./src/renderer/assets/stylus/theme.styl')
+          }
+        }]
       },
       {
         test: /\.css$/,

@@ -3,37 +3,78 @@
   "env": {
     "test": {
       "presets": [
-        ["env", {
-          "targets": { "node": 7 }
-        }],
+        [
+          "env",
+          {
+            "targets": {
+              "node": 7
+            }
+          }
+        ],
         "stage-0"
       ],
-      "plugins": ["istanbul", "syntax-dynamic-import"]
+      "plugins": [
+        "istanbul"
+      ]
     },
     "main": {
       "presets": [
-        ["env", {
-          "targets": { "node": 7 }
-        }],
+        [
+          "env",
+          {
+            "targets": {
+              "node": 7
+            }
+          }
+        ],
         "stage-0"
       ]
     },
     "renderer": {
       "presets": [
-        ["env", {
-          "modules": false
-        }],
+        [
+          "env",
+          {
+            "modules": false
+          }
+        ],
         "stage-0"
       ]
     },
     "web": {
       "presets": [
-        ["env", {
-          "modules": false
-        }],
+        [
+          "env",
+          {
+            "modules": false,
+            "targets": {
+              "browsers": [
+                "> 1%",
+                "last 2 versions",
+                "not ie <= 8"
+              ]
+            }
+          }
+        ],
         "stage-0"
       ]
     }
   },
-  "plugins": ["transform-runtime"]
+  "plugins": [
+    "transform-runtime",
+    [
+      "transform-imports",
+      {
+        "vuetify": {
+          "transform": "vuetify/es5/components/${member}"
+        },
+        "lodash": {
+          "transform": "lodash/${member}"
+        },
+        "lodash/fp": {
+          "transform": "lodash/fp/${member}"
+        }
+      }
+    ]
+  ]
 }

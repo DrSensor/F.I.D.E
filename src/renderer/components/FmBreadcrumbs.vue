@@ -11,9 +11,14 @@
 
 <script>
 import { mapActions, mapState, mapGetters } from 'vuex'
+import { VBreadcrumbs, VIcon } from 'vuetify'
 
 export default {
-  name: 'BreadcrumbsFolder',
+  name: 'FmBreadcrumbs',
+  components: {
+    VBreadcrumbs,
+    VIcon
+  },
 
   computed: {
     ...mapState('fileManagers', [
@@ -24,6 +29,7 @@ export default {
       'breadcrumbs'
     ])
   },
+
   methods: {
     ...mapActions('fileManagers/localFiles', [
       'openProject',

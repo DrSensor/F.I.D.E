@@ -1,8 +1,5 @@
 <template>
-  <v-navigation-drawer
-    clipped persistent app
-    v-model="draw" :mini-variant="mini"
-    enable-resize-watcher>
+  <v-navigation-drawer clipped persistent app v-model="draw" :mini-variant="mini" enable-resize-watcher>
     <v-list v-if="!mini" class="pa-0">
       <v-list-tile avatar>
         <!-- avatar -->
@@ -14,10 +11,7 @@
     <v-list dense class="pt-0">
       <v-divider light></v-divider>
 
-      <v-list-tile v-for="item in items"
-        :key="item.path"
-        :to="{name: item.name}"
-        router>
+      <v-list-tile v-for="item in items" :key="item.path" :to="{name: item.name}" router>
         <v-list-tile-action>
           <v-icon>{{item.meta.icon}}</v-icon>
         </v-list-tile-action>
@@ -28,8 +22,7 @@
     </v-list>
     <v-divider/>
     <v-list class="pa-1 bottom">
-      <v-list-tile v-if="mini"
-        @click.native.stop="mini = !mini">
+      <v-list-tile v-if="mini" @click.native.stop="mini = !mini">
         <v-list-tile-action>
           <v-btn color="yellow" flat icon @click.native.stop="mini = !mini">
             <v-icon>chevron_right</v-icon>
@@ -41,19 +34,18 @@
         <v-list-tile-content>
           <v-list-tile-title class="title">{{timenow}}</v-list-tile-title>
         </v-list-tile-content>
-        <v-list-tile-action> 
+        <v-list-tile-action>
           <v-btn color="yellow" flat icon @click.native.stop="mini = !mini">
             <v-icon>chevron_left</v-icon>
           </v-btn>
         </v-list-tile-action>
       </v-list-tile>
     </v-list>
-    </v-navigation-drawer>
+  </v-navigation-drawer>
 </template>
 
 <script>
-import _ from 'lodash/collection'
-import omit from 'lodash/omit'
+import { collection as _, omit } from 'lodash'
 
 export default {
   name: 'NavigationSidebar',

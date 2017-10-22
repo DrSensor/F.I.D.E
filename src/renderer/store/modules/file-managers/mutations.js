@@ -1,8 +1,7 @@
 /* How to use it
 const FMcommit = (mutationType, status, payload) => commit(`fileManagers/${mutationType}]${status}`, payload, { root: true })
 */
-import isEmpty from 'lodash/isEmpty'
-import findLastIndex from 'lodash/fp/findLastIndex'
+import { isEmpty, findLastIndex } from 'lodash'
 import {
   historySchema,
   foldersSchema,
@@ -44,7 +43,7 @@ const mutations = {
       a.pop()
       return a || []
     }
-    let index = findLastIndex({uri: uri})(state.history)
+    let index = findLastIndex(state.history, { uri: uri })
     let history = popIndex(state.history, index)
     state.history = validate(history, historySchema)
   },

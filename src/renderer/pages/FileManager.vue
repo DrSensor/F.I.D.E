@@ -1,7 +1,7 @@
 <template>
   <v-container grid-list-md text-xs-center align-baseline fluid>
     <v-layout row wrap>
-      <BreadcrumbsFolder/>
+      <Breadcrumbs/>
     </v-layout>
     <v-layout row wrap>
       <v-btn @click='openFolder(folders[0].uri)'>openFolder</v-btn>
@@ -17,7 +17,7 @@ import { mapActions, mapState } from 'vuex'
 export default {
   name: 'FileManager',
   components: {
-    BreadcrumbsFolder: () => import('@/components/BreadcrumbsFolder')
+    Breadcrumbs: () => import('@/components/FmBreadcrumbs')
   },
 
   computed: {
