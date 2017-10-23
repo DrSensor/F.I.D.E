@@ -2,7 +2,7 @@ import { openDirectory } from '@/services/local-files/project'
 import { openFolder } from '@/services/local-files/folder'
 import {
   getThumbnailByExtension,
-  getExtension,
+  getFileType,
   isDirectory,
   isFile
 } from '@/utils/files'
@@ -15,15 +15,17 @@ const split2FoldersFiles = (content, source) => {
         return {
           name: dir,
           uri: new URL(join(source, dir), 'file://').href,
+          type: 'folder',
           itemCount: undefined
         }
       }),
     files: content.filter(file => isFile(join(source, file)))
       .map(file => {
-        let ext = getExtension(file)
+        let {ext, type} = getFileType(join(source, file))
         return {
           name: file,
           uri: new URL(join(source, file), 'file://').href,
+          type: type,
           thumbnail: getThumbnailByExtension(ext)
         }
       })

@@ -4,9 +4,10 @@
       <Breadcrumbs/>
     </v-layout>
     <v-layout row wrap>
-      <v-btn @click='openFolder(folders[0].uri)'>openFolder</v-btn>
       <v-btn @click='openProject()'>openProject</v-btn>
+      <v-btn @click='toggle = !toggle'>toggle order</v-btn>
     </v-layout>
+    <FolderFileCards sortBy="type" :toggle="toggle"/>
   </v-container>
 </template>
 
@@ -17,7 +18,13 @@ import { mapActions, mapState } from 'vuex'
 export default {
   name: 'FileManager',
   components: {
-    Breadcrumbs: () => import('@/components/FmBreadcrumbs')
+    Breadcrumbs: () => import('@/components/FmBreadcrumbs'),
+    FolderFileCards: () => import('@/components/FmListCard')
+  },
+  data () {
+    return {
+      toggle: false
+    }
   },
 
   computed: {

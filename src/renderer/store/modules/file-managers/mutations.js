@@ -25,13 +25,13 @@ const mutations = {
   'OPENING_PROJECT]finish' (state, { project, folders, files }) {
     state.openedProject = project
     state.folders = validate(folders, foldersSchema) || []
-    state.files = validate(folders, filesSchema) || []
+    state.files = validate(files, filesSchema) || []
     state.history = []
     state.opening = false
   },
   'OPENING_FOLDER]finish' (state, { origin, folders, files }) {
     state.folders = validate(folders, foldersSchema) || []
-    state.files = validate(folders, filesSchema) || []
+    state.files = validate(files, filesSchema) || []
     state.history.push(origin)
     if (!validate(state.history, historySchema)) state.history.pop()
     state.opening = false
@@ -49,6 +49,9 @@ const mutations = {
   },
   'OPENING]cancel' (state, payload) {
     state.opening = false
+  },
+  'TOGGLE_ORDER' (state) {
+    state.order = state.order === 'asc' ? 'desc' : 'asc'
   }
 }
 

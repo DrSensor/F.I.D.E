@@ -1,17 +1,19 @@
-import { inRange } from 'lodash'
+import { orderBy } from 'lodash'
 
 const STORE_STATE = {
   opening: false,
   openedProject: null,
   folders: [],
   files: [],
-  history: []
+  history: [],
+  order: 'asc'
 }
 
 const getters = {
-  emptyFolders: state => state.folders.filter(f => f.itemCount === 0),
-  smallFolders: state => state.folders.filter(f => inRange(f.itemCount, 1, 5)),
-  bigFolders: state => state.folders.filter(f => f.itemCount > 5),
+  sortByName: state => orderBy([].concat(state.folders, state.files),
+    ['name'], [state.order]),
+  sortByType: state => [].concat(state.folders, orderBy(state.files,
+    ['type'], [state.order])),
   breadcrumbs: state => state.history.filter(h => h.name)
 }
 
