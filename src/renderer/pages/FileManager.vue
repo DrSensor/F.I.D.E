@@ -6,36 +6,34 @@
     <v-layout row wrap>
       <v-btn @click='openProject()'>openProject</v-btn>
       <v-btn @click='toggle = !toggle'>toggle order</v-btn>
+      <v-btn @click='grouped = !grouped'>grouped order</v-btn>
+      <input type="text" v-model="sortBy" />
     </v-layout>
-    <FolderFileCards sortBy="type" :toggle="toggle"/>
+    <FolderFileViewer :sortBy="sortBy" :toggle="toggle" :grouped="grouped" />
   </v-container>
 </template>
 
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'FileManager',
   components: {
     Breadcrumbs: () => import('@/components/FmBreadcrumbs'),
-    FolderFileCards: () => import('@/components/FmListCard')
+    FolderFileViewer: () => import('@/components/FmGridView')
   },
   data () {
     return {
-      toggle: false
+      toggle: false,
+      grouped: false,
+      sortBy: 'name'
     }
   },
 
-  computed: {
-    ...mapState('fileManagers', [
-      'folders'
-    ])
-  },
   methods: {
     ...mapActions('fileManagers/localFiles', [
-      'openProject',
-      'openFolder'
+      'openProject'
     ])
   }
 }

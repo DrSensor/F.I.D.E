@@ -64,7 +64,8 @@
       "category": "ProjectManagement",
       "target": [
         "AppImage",
-        "deb"
+        "deb",
+        "snap"
       ]
     }
   },
