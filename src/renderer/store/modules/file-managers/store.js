@@ -12,8 +12,12 @@ const STORE_STATE = {
 const getters = {
   sortByName: state => orderBy([].concat(state.folders, state.files),
     ['name'], [state.order]),
-  sortByType: state => [].concat(state.folders, orderBy(state.files,
-    ['type'], [state.order])),
+  sortByType: state => {
+    let ordered = orderBy(state.files, ['type'], [state.order])
+    if (state.order === 'asc') {
+      return [].concat(state.folders, ordered)
+    } else return [].concat(ordered, state.folders)
+  },
   breadcrumbs: state => state.history.filter(h => h.name)
 }
 

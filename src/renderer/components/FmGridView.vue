@@ -1,10 +1,16 @@
 <template>
   <v-container transition="fade-transition">
     <fm-grid-view-grouped :groupedContents="contents" v-if="grouped">
-      <slot/>
+      <template v-for="contentsByType in contents">
+        <template v-for="content in contentsByType" :slot="content.uri">
+          <slot :name="content.uri" />
+        </template>
+      </template>
     </fm-grid-view-grouped>
     <fm-grid-view-base :contents="contents" v-else>
-      <slot/>
+      <template v-for="content in contents" :slot="content.uri">
+        <slot :name="content.uri" />
+      </template>
     </fm-grid-view-base>
   </v-container>
 </template>
@@ -41,6 +47,9 @@ export default {
   watch: {
     toggle: function () {
       this.toggleOrder()
+    },
+    contents: function (data) {
+      this.$emit('update:contents', data)
     }
   },
   methods: {

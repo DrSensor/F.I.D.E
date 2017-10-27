@@ -9,13 +9,16 @@
       <v-btn @click='grouped = !grouped'>grouped order</v-btn>
       <input type="text" v-model="sortBy" />
     </v-layout>
-    <FolderFileViewer :sortBy="sortBy" :toggle="toggle" :grouped="grouped" />
+    <FolderFileViewer :contents.sync="contents" :sortBy="sortBy" :toggle="toggle" :grouped="grouped">
+      <v-chip :slot="toURI('Pipfile')">asdsd</v-chip>
+    </FolderFileViewer>
   </v-container>
 </template>
 
 
 <script>
 import { mapActions } from 'vuex'
+import { find, isPlainObject, filter, some } from 'lodash'
 
 export default {
   name: 'FileManager',
@@ -27,14 +30,23 @@ export default {
     return {
       toggle: false,
       grouped: false,
-      sortBy: 'name'
+      sortBy: 'name',
+      contents: null
     }
   },
 
   methods: {
     ...mapActions('fileManagers/localFiles', [
       'openProject'
-    ])
+    ]),
+    toURI (filename) {
+      try {
+        if (isPlainObject(this.contents)) {
+          let segment = filter(this.contents, typeContents => some(typeContents, ['name', filename]))
+          return find(segment, ['name', filename]).uri
+        } else return find(this.contents, ['name', filename]).uri
+      } catch (error) { }
+    }
   }
 }
 </script>
