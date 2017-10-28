@@ -17,19 +17,22 @@
 <br/><br/>
 
 # Feature
-## Feature on going `v1.x.x`
+## Feature on going before/after `v1.x.x`
 - File and Folder explorer in following style:
-  - [ ] cardbox view in main section
+  - [x] grid view in main section
+  - [ ] table/list view in main section
+  - [ ] control button (sort, group, etc)
 - Linking sensor/device data (MQTT topics)
   - [ ] Link into file
-  - [ ] ** Link into inside file (e.g in position x,y when its pdf/jpg/svg)
+  - [ ] ** Link/annotate inside into file (e.g in position x,y when its pdf/jpg/svg)
 - [ ] View linked sensor/device in folder (not file)
-- [ ] Registering one of the following IoT service/message broker
+- [ ] Integrate with one of the following IoT service/message broker
   - [ ] [AWSIoT](http://docs.aws.amazon.com/iot/latest/apireference)
-  - [ ] [Ubidots](https://ubidots.com/docs/api/)
+  - [ ] [emqtt](http://emqtt.io/docs/v2/rest.html#)
   - [ ] ** [Arduino Cloud](https://cloud.arduino.cc)
   - [ ] ** [ARKTIK cloud](https://developer.artik.cloud/documentation/api-reference/)
-- [ ] Registering one of the following Cloud Storage
+- [ ] Integrate with one of the following Cloud/Local Storage
+  - [x] All OS (Windows, Linux, Mac) local and network storage
   - [ ] ** [Google Drive](https://developers.google.com/drive/v3/reference/)
   - [ ] [BIM360 docs](https://developer.autodesk.com/en/docs/data/v2/reference/http/)
   - [ ] ** [Dropbox](https://dropbox.github.io/dropbox-api-v2-explorer/)
@@ -38,31 +41,33 @@
 
 <br/>
 
-## Feature on going `v2.x.x`
-- [ ] File and Folder explorer in following style:
-  - [ ] intuitive cardbox view in main section
-  - [ ] tree view in sidemenu
+## Feature on going near `v2.x.x`
+- [ ] Redesign the UI and UX:
+  - [ ] Graph relation explorer view
+  - [ ] device explorer view
+  - [ ] tree view on sidemenu
 - [ ] trace Folder-File by version (if integrate with Cloud Storage)
 - [ ] Folder-File Statistics
 - [ ] ** Sensor/Device Statistics
-- [ ] File explorer can also support  url:
+- [ ] File explorer can also support nonfile:
+  - [ ] Map with specific max-zoom-out and geofence
   - [ ] Video Stream (rtsp://) url
-    - [ ] link sensor data into Video Stream at position x,y
+    - [ ] link/annotate Video Stream at position x,y to sensor
     - [ ] * visualize sensor data as bounding box (if its camera processed data)
 - [ ] * Choose type of chart in `real time sensor data visualization`
 
 <br/>
 
 ## Something must be done before `v3.x.x` (in `alpha` and `beta` stage)
-- [ ] Option to deploy as SPA (SSR or not?)
+- [ ] Option to deploy as web apps
 - Cloud deploy button/tutorial
   - [ ] Heroku
   - [ ] AWS
 - Optimization in Continous Deployment
-  - Released binary
-    - [ ] installer in Linux (`.deb`, `.rpm`, `.run`)
-    - [ ] installer in OS X
-    - [ ] installer in Windows (`.exe`)
+  - Release official binary
+    - [ ] installer in Linux (`.deb`, `.AppImage`, `.snap`, `rpm`)
+    - [ ] installer in OS X (`.dmg`) (need to be signed)
+    - [ ] installer in Windows (`.exe`, `AppX`) (need to be signed)
   - [ ] test build with latest dependency at `test-dependency` stage
 
 <br/>
@@ -71,10 +76,10 @@
 ** : *chance not to be implemented in the current version*
 
 ---
-## `v3.x.x`
+## `v3.x.x` and beyond (Data Science functionality)
 - [ ] addons/plugins mechanism
-- Dependency migration in consideration
-  - Electron alternative
-    - [ ] [thrust](https://github.com/breach/thrust)
-  - change SocketIO to RPC
-    - [ ] library like zerorpc **but** still being maintained and License compatible
+- [ ] use [jupyter kernel gateway](http://jupyter-kernel-gateway.readthedocs.io/en/latest/index.html) for rapid prototyping sensor fusion and/or filter algorithm
+- [ ] add docker-compose to use at testing phase
+- [ ] add view/page/layout for 
+
+[graph stream data **before** processed] -> [text editor for writing code] -> [graph stream data **after** processed]
