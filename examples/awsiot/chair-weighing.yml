@@ -1,0 +1,64 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: >
+  template for registering a chair pressure/force/load sensor.
+
+Parameters:
+  CertificateARN:
+    Type: String
+    Description: The Amazon Resource Name (ARN) of the existing AWS IoT certificate.
+  ChairID:
+    Description: unique ID of chair. ID must be number
+    Type: String
+    AllowedPattern: ^[0-9]*$
+Metadata:
+  AWS::CloudFormation::Interface:
+    ParameterGroups: 
+      - 
+        Label: 
+          default: "AWS IoT specifics"
+        Parameters: 
+          - CertificateARN
+          - ChairID
+
+Resources:
+  IoTThing:
+    Type: 'AWS::IoT::Thing'
+    Properties:
+      ThingName: !Sub 'chair-${ChairID}'
+      AttributePayload:
+        Attributes:
+          weight: gram
+  IoTPolicy:
+    Type: 'AWS::IoT::Policy'
+    DependsOn:
+      - IoTThing
+    Properties:
+      PolicyName: chair
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action: 
+              - 'iot:Publish'
+              - 'iot:Connect'
+            Resource: 
+              - !Sub 'arn:aws:iot:${AWS::Region}:${AWS::AccountId}:thing/chair'
+              - !Sub 'arn:aws:iot:${AWS::Region}:${AWS::AccountId}:thing/chair-*'
+              - !Sub 'arn:aws:iot:${AWS::Region}:${AWS::AccountId}:thing/chair/*'
+  IoTPolicyPrincipal:
+    Type: 'AWS::IoT::PolicyPrincipalAttachment'
+    Properties:
+      PolicyName: !Ref IoTPolicy
+      Principal: !Ref CertificateARN
+  IoTThingPrincipal:
+    Type: 'AWS::IoT::ThingPrincipalAttachment'
+    Properties:
+      ThingName: !Ref IoTThing
+      Principal: !Ref CertificateARN
+
+Outputs:
+  ThingPolicy:
+    Description: Chair Scale Weighing Policy
+    Value: !Ref IoTPolicy
+    Export:
+        Name: !GetAtt IoTPolicy.Arn

@@ -73,6 +73,9 @@
         },
         "lodash/fp": {
           "transform": "lodash/fp/${member}"
+        },
+        "aws-sdk": {
+          "transform": "aws-sdk/clients/${member}"
         }
       }
     ]

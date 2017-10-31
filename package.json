@@ -64,12 +64,13 @@
       "category": "ProjectManagement",
       "target": [
         "AppImage",
-        "deb",
-        "snap"
+        "deb"
       ]
     }
   },
   "dependencies": {
+    "aws-iot-device-sdk": "^2.1.0",
+    "aws-sdk": "^2.141.0",
     "axios": "^0.16.1",
     "file-type": "^7.2.0",
     "js-data": "^3.0.1",

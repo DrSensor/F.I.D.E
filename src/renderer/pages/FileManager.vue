@@ -8,6 +8,15 @@
       <v-btn @click='toggle = !toggle'>toggle order</v-btn>
       <v-btn @click='grouped = !grouped'>grouped order</v-btn>
       <input type="text" v-model="sortBy" />
+
+      <v-dialog max-width="500px">
+        <v-btn color="orange" slot="activator">AWS</v-btn>
+        <v-container>
+          <h5>AWS IoT</h5>
+          <RegForm/>
+        </v-container>
+      </v-dialog>
+      
     </v-layout>
     <FolderFileViewer :contents.sync="contents" :sortBy="sortBy" :toggle="toggle" :grouped="grouped">
       <v-chip :slot="toURI('Pipfile')">asdsd</v-chip>
@@ -24,7 +33,8 @@ export default {
   name: 'FileManager',
   components: {
     Breadcrumbs: () => import('@/components/FmBreadcrumbs'),
-    FolderFileViewer: () => import('@/components/FmGridView')
+    FolderFileViewer: () => import('@/components/FmGridView'),
+    RegForm: () => import('@/components/AWSRegForm')
   },
   data () {
     return {

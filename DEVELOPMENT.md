@@ -40,7 +40,8 @@ especially in naming
   - [pages](src/renderer/pages/) when using components,
   - [layouts](src/renderer/layouts/) when using pages and components,
   - [router](src/renderer/router/) when using pages
-- use [ifdef](https://github.com/nippur72/ifdef-loader) `BUILD_TARGET!='web'` when using electron API
+- use [ifdef](https://github.com/nippur72/ifdef-loader) `BUILD_TARGET!='web'` when using electron API.
+(~~TODO: soon will be replaced with preprocess-loader~~)
 
 ## Tips
 - VSCode settings
