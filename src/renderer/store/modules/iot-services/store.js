@@ -1,5 +1,5 @@
 const STORE_STATE = {
-  requesting: [],
+  requesting: false,
   things: [],
   order: 'asc'
 }

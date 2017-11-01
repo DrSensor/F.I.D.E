@@ -1,18 +1,28 @@
+function createOrUpdate (state, payload) {
+  state.requesting = false
+  return state
+}
+
 const mutations = {
-  'REQUESTING]loading' (state, payload) {
-
+  'THINGS]loading' (state, payload) {
+    state.requesting = true
   },
-  'LIST_THINGS' (state, payload) {
-
+  'THINGS_LIST]finish' (state, payload) {
+    state.requesting = false
+    state.things = payload
   },
-  'CREATE|UPDATE_THING' (state, payload) {
-
+  'THINGS_CREATE]finish' (state, payload) {
+    state = createOrUpdate(state, payload)
   },
-  'DELETE_THING' (state, payload) {
-
+  'THINGS_UPDATE]finish' (state, payload) {
+    state = createOrUpdate(state, payload)
   },
-  'REQUESTING]finish' (state, payload) {
-
+  'THINGS_DELETE]finish' (state, payload) {
+    state.requesting = false
+  },
+  'THINGS]cancel' (state, payload) {
+    state.requesting = false
+    state.error = payload
   }
 }
 

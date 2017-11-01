@@ -28,7 +28,7 @@
 - [ ] View linked sensor/device in folder (not file)
 - [ ] Integrate with one of the following IoT service/message broker
   - [ ] [AWSIoT](http://docs.aws.amazon.com/iot/latest/apireference)
-  - [ ] [emqtt](http://emqtt.io/docs/v2/rest.html#)
+  - [ ] [emqtt](http://emqtt.io/docs/v2/rest.html#routes)
   - [ ] ** [Arduino Cloud](https://cloud.arduino.cc)
   - [ ] ** [ARKTIK cloud](https://developer.artik.cloud/documentation/api-reference/)
 - [ ] Integrate with one of the following Cloud/Local Storage
