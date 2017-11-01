@@ -1,16 +1,14 @@
 <template>
   <div>
-    <span>Bonjour</span>
+    <RegForm/>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'FileViewer'
+  name: 'FileViewer',
+  components: {
+    RegForm: () => import('@/components/AWSRegForm')
+  }
 }
 </script>
-
-
-<style scoped>
-
-</style>
