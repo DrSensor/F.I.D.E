@@ -39,7 +39,6 @@ install:
 
 build_script:
   #- yarn test
-  - yarn build:web
   - yarn build
 
 test: off

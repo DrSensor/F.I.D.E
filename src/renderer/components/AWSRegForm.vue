@@ -1,8 +1,21 @@
 <template>
   <v-form v-model="valid">
-    <v-text-field label="Access key ID" v-model="accessKey" :rules="accessKeyRules" required></v-text-field>
-    <v-text-field label="Secret access key" v-model="secretKey" :rules="secretKeyRules" required></v-text-field>
-    <v-text-field label="Region" v-model="region" :rules="regionRules" required></v-text-field>
+    <v-text-field prepend-icon="supervisor_account" 
+                  label="Access key ID" 
+                  v-model="accessKey" 
+                  :rules="accessKeyRules" 
+                  required
+    ></v-text-field>
+    <v-text-field prepend-icon="vpn_key"
+                  :append-icon="keyVisible ? 'visibility' : 'visibility_off'"
+                  :append-icon-cb="() => (keyVisible = !keyVisible)"
+                  :type="keyVisible ? 'password' : 'text'"
+                  label="Secret access key" 
+                  v-model="secretKey" 
+                  :rules="secretKeyRules" 
+                  required
+    ></v-text-field>
+    <v-text-field prepend-icon="public" label="Region" v-model="region" :rules="regionRules" required></v-text-field>
 
     <v-btn color="orange" :loading="authenticating" :disabled="!valid || authenticating" @click.native="verify()">
       Configure
@@ -23,6 +36,8 @@
 import { mapActions, mapState } from 'vuex'
 import { isEmpty } from 'lodash'
 
+const opts = JSON.parse(window.localStorage.getItem('aws')) || {}
+
 export default {
   name: 'AWSRegForm',
   data () {
@@ -31,11 +46,12 @@ export default {
     let regexRegion = /(([a-z]{2})-([a-z]*)-[1-2])/
     return {
       valid: false,
-      accessKey: '',
+      keyVisible: true,
+      accessKey: opts.accessKeyId || '',
       accessKeyRules: [ str => regexAccessKey.test(str) || 'invalid access key' ],
-      secretKey: '',
+      secretKey: opts.secretAccessKey || '',
       secretKeyRules: [ str => regexSecretKey.test(str) || 'invalid secret key' ],
-      region: '',
+      region: opts.region || '',
       regionRules: [ str => regexRegion.test(str) || 'invalid region' ]
     }
   },

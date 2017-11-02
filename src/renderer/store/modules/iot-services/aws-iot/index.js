@@ -1,7 +1,8 @@
 import { iot as Iot } from 'aws-sdk'
 import { isEmpty } from 'lodash'
 
-let iot
+const opts = JSON.parse(window.localStorage.getItem('aws-iot'))
+let iot = new Iot(opts)
 
 export default {
   namespaced: true,
@@ -28,6 +29,7 @@ export default {
     async auth ({ state, commit, dispatch }, options) {
       iot = new Iot(options)
       commit('AUTHENTICATE]loading')
+      window.localStorage.setItem('aws', JSON.stringify(options))
 
       try {
         const endpoint = await iot.describeEndpoint().promise()

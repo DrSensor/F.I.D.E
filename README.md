@@ -1,6 +1,7 @@
 <h1>
     <span>F.I.D.E</span> 
     <span><img src="build/icons/256x256.png" alt="Field IoT Data/Device Explorer" height="56px"></span>
+    <span>(WIP)</span>
 </h1>
 \fɪdˈɛ\
 
