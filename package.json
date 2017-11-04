@@ -2,8 +2,8 @@
   "name": "f.i.d.e",
   "version": "0.0.0",
   "author": "Fahmi Akbar Wildana <sensorfied@gmail.com>",
-  "description": "An desktop application for manage and explore IoT Device in the Field",
-  "license": null,
+  "description": "A desktop application for manage and explore IoT Device in the Field",
+  "license": "Apache-2.0",
   "main": "./dist/electron/main.js",
   "scripts": {
     "build": "node .electron-vue/build.js && electron-builder",
@@ -69,7 +69,6 @@
     }
   },
   "dependencies": {
-    "aws-iot-device-sdk": "^2.1.0",
     "aws-sdk": "^2.141.0",
     "axios": "^0.16.1",
     "file-type": "^7.2.0",
@@ -79,6 +78,7 @@
     "logrocket": "^0.5.5",
     "logrocket-vuex": "^0.0.3",
     "mime": "^2.0.3",
+    "mqtt-pattern": "^1.0.0",
     "read-chunk": "^2.1.0",
     "vue": "^2.4.2",
     "vue-router": "^2.5.3",

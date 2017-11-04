@@ -30,15 +30,16 @@
         </v-list-tile-action>
       </v-list-tile>
       <v-list-tile v-else flat class="deep-orange">
-        <v-spacer/>
-        <v-list-tile-content>
-          <v-list-tile-title class="title">{{timenow}}</v-list-tile-title>
-        </v-list-tile-content>
         <v-list-tile-action>
           <v-btn color="yellow" flat icon @click.native.stop="mini = !mini">
             <v-icon>chevron_left</v-icon>
           </v-btn>
         </v-list-tile-action>
+        <v-spacer/>
+        <v-list-tile-content>
+          <v-list-tile-title class="title">{{timenow}}</v-list-tile-title>
+        </v-list-tile-content>
+        <v-spacer/>        
       </v-list-tile>
     </v-list>
   </v-navigation-drawer>

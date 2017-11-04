@@ -1,22 +1,13 @@
 /* How to use it
 const FMcommit = (mutationType, status, payload) => commit(`fileManagers/${mutationType}]${status}`, payload, { root: true })
 */
-import { isEmpty, findLastIndex } from 'lodash'
+import { findLastIndex } from 'lodash'
 import {
   historySchema,
   foldersSchema,
   filesSchema
 } from './validations'
-
-const validate = (payload, schema) => {
-  let errorDetails = schema.validate(payload)
-  let isValid = isEmpty(errorDetails)
-  if (isValid) return payload
-  else {
-    console.warn(errorDetails)
-    return undefined
-  }
-}
+import validate from '@/utils/validate'
 
 const mutations = {
   'OPENING]loading' (state) {

@@ -44,9 +44,7 @@ Resources:
               - 'iot:Publish'
               - 'iot:Connect'
             Resource: 
-              - !Sub 'arn:aws:iot:${AWS::Region}:${AWS::AccountId}:thing/coffeemachine'
-              - !Sub 'arn:aws:iot:${AWS::Region}:${AWS::AccountId}:thing/coffeemachine-*'
-              - !Sub 'arn:aws:iot:${AWS::Region}:${AWS::AccountId}:thing/coffeemachine/*'
+              - !Sub 'arn:aws:iot:${AWS::Region}:${AWS::AccountId}:topic/${iot:Connection.Thing.ThingTypeName}/${iot:Connection.Thing.ThingName}'
   IoTPolicyPrincipal:
     Type: 'AWS::IoT::PolicyPrincipalAttachment'
     Properties:

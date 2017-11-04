@@ -1,3 +1,6 @@
+import { thingsSchema } from './validations'
+import validate from '@/utils/validate'
+
 function createOrUpdate (state, payload) {
   state.requesting = false
   return state
@@ -9,7 +12,7 @@ const mutations = {
   },
   'THINGS_LIST]finish' (state, payload) {
     state.requesting = false
-    state.things = payload
+    state.things = validate(payload, thingsSchema)
   },
   'THINGS_CREATE]finish' (state, payload) {
     state = createOrUpdate(state, payload)
