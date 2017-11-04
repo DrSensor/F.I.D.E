@@ -7,6 +7,7 @@
 
 [![Build Status](https://travis-ci.org/DrSensor/F.I.D.E.svg?branch=master)](https://travis-ci.org/DrSensor/F.I.D.E)
 [![Build status](https://ci.appveyor.com/api/projects/status/mjefjrnm444kt1rr?svg=true)](https://ci.appveyor.com/project/DrSensor/f-i-d-e)
+[![Dependency Status](https://dependencyci.com/github/DrSensor/F.I.D.E/badge)](https://dependencyci.com/github/DrSensor/F.I.D.E)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FDrSensor%2FF.I.D.E.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FDrSensor%2FF.I.D.E?ref=badge_shield)
 
 ## Field IoT Data/Device Explorer
@@ -23,12 +24,12 @@ This app aims to help manage and explore IoT Data by taking File Explorer like a
 
 The idea are each MQTT topic can be linked to file or folder from your local drive or Cloud Drive Storage (e.g Google Drive, BIM360 docs). Then you can explore the file and the real time data at the same time. Some benefit of this that you can relate IoT device to Floor Plan drawing (mostly in pdf).
 
-
-## Feature
+## Use case
 Some use case that this app can do:
-- view real time sensor data in Floor Plan drawing
 - map device script (e.g arduino file) to MQTT topics
-- plan device placement in Drawing file
+- plan device placement in Drawing file (e.g Floor Plan drawing)
+- relate mqtt topics with schematics diagram (in photo or just schematics)
+- defining project specification
 - many more coming soon
 
 See [ROADMAP.md](./ROADMAP.md).
