@@ -13,9 +13,9 @@ platform:
 artifacts:
   - path: build/*.appx
   - path: build/*.exe
-  - path: dist/web
-    name: web
-    type: zip
+#  - path: dist/web
+#    name: web
+#    type: zip
 
 environment:
   GH_TOKEN:
@@ -32,13 +32,13 @@ init:
 
 install:
   - ps: Install-Product node 8 x64
-  - choco install yarn --ignore-dependencies
   - git reset --hard HEAD
   - yarn
   - node --version
 
 build_script:
   #- yarn test
+  #- yarn build:web
   - yarn build
 
 test: off
