@@ -42,6 +42,7 @@ especially in naming
   - [router](src/renderer/router/) when using pages
 - use [ifdef](https://github.com/nippur72/ifdef-loader) `BUILD_TARGET!='web'` when using electron API.
 (~~TODO: soon will be replaced with preprocess-loader~~)
+- when using p5js use [instance mode](https://github.com/processing/p5.js/wiki/Global-and-instance-mode)
 
 ## Tips
 - VSCode settings

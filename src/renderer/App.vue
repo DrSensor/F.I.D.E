@@ -2,7 +2,7 @@
   <div id="app">
     <v-app dark>
       <LeftSidebar :toggle='sidebar'/>
-      <HeaderToolbar @show-sidebar='val => { sidebar = val }'/>
+      <HeaderToolbar id="header" @show-sidebar='val => { sidebar = val }'/>
       <main>
         <v-content>
           <v-slide-y-transition mode="out-in">
@@ -34,6 +34,13 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+#header {
+  position: sticky;
+}
+</style>
+
 
 <style lang="stylus">
 @import './assets/stylus/main.styl';

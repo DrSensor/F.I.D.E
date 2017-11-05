@@ -9,11 +9,11 @@
       <v-btn @click='grouped = !grouped'>grouped order</v-btn>
       <input type="text" v-model="sortBy" />
 
-      <v-dialog max-width="500px">
+      <v-dialog v-model="awsDialog" max-width="500px">
         <v-btn color="orange" slot="activator">AWS</v-btn>
         <v-container>
           <h5>AWS IoT</h5>
-          <RegForm/>
+          <RegForm @success="awsDialog = false"/>
         </v-container>
       </v-dialog>
       
@@ -38,6 +38,7 @@ export default {
   },
   data () {
     return {
+      awsDialog: false,
       toggle: false,
       grouped: false,
       sortBy: 'name',

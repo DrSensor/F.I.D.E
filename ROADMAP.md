@@ -85,10 +85,10 @@
 
 ---
 ## `v3.x.x` and beyond (Data Science functionality)
-- [ ] addons/plugins mechanism
+- [ ] addons/plugins mechanism using [SystemJS](https://github.com/systemjs/systemjs) or [little-loader](https://github.com/walmartlabs/little-loader)
 - [ ] use [jupyter kernel gateway](http://jupyter-kernel-gateway.readthedocs.io/en/latest/index.html) for rapid prototyping sensor fusion and/or filter algorithm
 - [ ] add docker-compose to use at testing phase
-- [ ] add view/page/layout for 
+- [ ] add view/page/layout for
 
 [graph stream data **before** processed] -> [text editor for writing code] -> [graph stream data **after** processed]
 
@@ -105,3 +105,4 @@
       - [ ] List/Table view
       - [ ] Tree view
 - Integration (or get inspired) with [myviz](https://github.com/3sigma/MyViz)
+- utilize [pdfjs in webpack](https://github.com/mozilla/pdf.js/tree/master/examples/webpack)

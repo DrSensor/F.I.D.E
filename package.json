@@ -79,6 +79,8 @@
     "logrocket-vuex": "^0.0.3",
     "mime": "^2.0.3",
     "mqtt-pattern": "^1.0.0",
+    "p5": "^0.5.16",
+    "pdfjs-dist": "^2.0.91",
     "read-chunk": "^2.1.0",
     "vue": "^2.4.2",
     "vue-router": "^2.5.3",

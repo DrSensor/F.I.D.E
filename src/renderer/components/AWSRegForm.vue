@@ -77,7 +77,7 @@ export default {
         accessKeyId: this.accessKey,
         secretAccessKey: this.secretKey,
         region: this.region
-      })
+      }).then(success => setTimeout(() => this.$emit('success'), 1500))
     }
   }
 }
