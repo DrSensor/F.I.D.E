@@ -1,32 +1,59 @@
 <template>
   <v-layout id="sketch" ref="annotator">
-    <v-btn @click.native="clik()"></v-btn>
-    <img src="../assets/default.png" />
+    <slot>
+      <span>Noting to display</span>
+    </slot>
   </v-layout>
 </template>
 
 <script>
 import sketch from './AnnotatorImage.sketch'
-
-let canvas
+import P5 from 'p5'
 
 export default {
   name: 'AnnotatorImage',
-  data () {
-    return {
-      toogle: true
+  props: {
+    annotateMode: {
+      default: false,
+      type: Boolean
     }
   },
-  methods: {
-    clik () {
-      canvas.refresh()
+  data () {
+    return {
+      canvas: null
     }
   },
   mounted () {
-    canvas = sketch(this.$refs['annotator'])
-    canvas.extHeight = 1000
-    canvas.extWidth = 1000
-    canvas.setup()
+    this.canvas = new P5(sketch, this.$refs['annotator'])
+
+    // https://github.com/vuejs/Discussion/issues/394
+    this.$ready(this.handleResize)
+    window.addEventListener('resize', this.handleResize)
+  },
+  watch: {
+    annotateMode: function (val) {
+      if (val) {
+        this.canvas.annotateMode()
+        let interval = setInterval(() => {
+          if (!sketch.annotate) {
+            this.$emit('update:annotateMode', sketch.annotate)
+            clearInterval(interval)
+          }
+        }, 700)
+      }
+    }
+  },
+  methods: {
+    handleResize () {
+      this.canvas.extHeight = this.$refs['annotator'].clientHeight
+      this.canvas.extWidth = this.$refs['annotator'].clientWidth
+      this.canvas.refresh()
+    }
+  },
+  beforeDestroy () {
+    window.removeEventListener('resize', this.handleResize)
+    this.$ready()
+    this.canvas.remove()
   }
 }
 </script>
@@ -34,8 +61,10 @@ export default {
 <style scoped>
 #sketch {
   position: fixed;
+  height: 100%;
+  width: 100%;
 }
-#sketch > .btn {
+#sketch > * {
   z-index: 0;
   position: absolute;
 }

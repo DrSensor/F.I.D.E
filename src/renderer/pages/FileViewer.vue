@@ -1,7 +1,15 @@
 <template>
-  <div>
+  <div id="viewer">
     <v-btn @click='listThings()'>list things</v-btn>
-    <AnnotatorImage/>
+    <v-dialog v-model="dialog" max-width="500px">
+      <v-btn color="orange" slot="activator">Telemetry</v-btn>
+      <v-container>
+        <h5>Telemetry</h5>
+        <Telecommand />
+      </v-container>
+    </v-dialog>
+    <v-btn color="green" @click.native="annotate = true">Annotate</v-btn>
+    <AnnotatorImage :annotateMode.sync="annotate"/>
   </div>
 </template>
 
@@ -11,7 +19,14 @@ import { mapActions } from 'vuex'
 export default {
   name: 'FileViewer',
   components: {
-    AnnotatorImage: () => import('@/components/AnnotatorImage')
+    AnnotatorImage: () => import('@/components/AnnotatorImage'),
+    Telecommand: () => import('@/components/TelecommandChooser')
+  },
+  data () {
+    return {
+      dialog: false,
+      annotate: false
+    }
   },
   methods: {
     ...mapActions('iotServices/awsIot', [
@@ -20,3 +35,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+#viewer {
+  user-select: none;
+}
+</style>
+

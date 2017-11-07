@@ -76,6 +76,9 @@
         },
         "aws-sdk": {
           "transform": "aws-sdk/clients/${member}"
+        },
+        "@/shapes": {
+          "transform": "@/shapes/${member}.shape"
         }
       }
     ]

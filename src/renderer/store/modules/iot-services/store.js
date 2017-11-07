@@ -5,7 +5,7 @@ const STORE_STATE = {
 }
 
 const getters = {
-
+  thingsName: state => state.things.map(thing => thing.name)
 }
 
 const state = function () {

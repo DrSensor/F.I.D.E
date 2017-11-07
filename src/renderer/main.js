@@ -17,3 +17,18 @@ new Vue({
   store,
   template: '<App/>'
 }).$mount('#app')
+
+// https://github.com/vuejs/Discussion/issues/394
+Vue.mixin({
+  methods: {
+    $ready (fn) {
+      if (process.env.NODE_ENV === 'production') {
+        return this.$nextTick(fn)
+      }
+
+      setTimeout(() => {
+        this.$nextTick(fn)
+      }, 500)
+    }
+  }
+})
