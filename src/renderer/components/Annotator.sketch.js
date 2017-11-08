@@ -19,12 +19,12 @@ const s = function (sketch) {
     },
 
     setup () {
-      sketch.createCanvas(sketch.extWidth, sketch.extHeight)
+      sketch.createCanvas()
       sketch.noLoop()
     },
 
-    refresh () {
-      sketch.resizeCanvas(sketch.extWidth, sketch.extHeight)
+    resize (width, height) {
+      sketch.resizeCanvas(width, height)
     },
 
     annotateMode (listener) {
@@ -33,7 +33,6 @@ const s = function (sketch) {
     },
 
     draw () {
-      // console.log('draw: ' + beginDrawAnnotation)
       if (sketch.annotate) {
         sketch.push()
         annotations[annotations.length - 1].draw(x, y, w, h, 2)
@@ -55,7 +54,6 @@ const s = function (sketch) {
     },
 
     mousePressed () {
-      // console.log('mousePressed: ' + beginDrawAnnotation)
       if (beginDrawAnnotation) {
         x = sketch.mouseX
         y = sketch.mouseY
@@ -93,7 +91,6 @@ const s = function (sketch) {
         ([x, y, w, h] = [0, 0, 0, 0])
         sketch.annotate = beginDrawAnnotation = false
       }
-      console.log(annotations)
       sketch.clear()
       sketch.noLoop()
     }

@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <v-app dark>
-      <LeftSidebar :toggle='sidebar'/>
-      <HeaderToolbar id="header" @show-sidebar='val => { sidebar = val }'/>
+      <LeftSidebar :toggle='sidebar' />
+      <HeaderToolbar id="header" @show-sidebar='val => { sidebar = val }' />
       <main>
         <v-content>
           <v-slide-y-transition mode="out-in">
@@ -50,4 +50,7 @@ export default {
 <style>
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons");
 /* Global CSS */
+html {
+  overflow: hidden;
+}
 </style>

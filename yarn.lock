@@ -8262,9 +8262,9 @@ webdriverio@^4.8.0:
     wdio-dot-reporter "~0.0.8"
     wgxpath "~1.0.0"
 
-webpack-dashboard@^1.0.0:
+"webpack-dashboard@https://github.com/DrSensor/webpack-dashboard.git":
   version "1.0.0"
-  resolved "https://registry.yarnpkg.com/webpack-dashboard/-/webpack-dashboard-1.0.0.tgz#b7a27884f21a0b6fb0107ea9a60d7fdcc52ca167"
+  resolved "https://github.com/DrSensor/webpack-dashboard.git#dcb15fae599b50b3383e240981779ad3e6cdcfd4"
   dependencies:
     babel-core "^6.24.0"
     babel-traverse "^6.23.1"

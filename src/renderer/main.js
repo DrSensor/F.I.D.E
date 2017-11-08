@@ -7,6 +7,7 @@ import router from './router'
 import store from './store'
 
 Vue.use(Vuetify)
+
 Vue.http = Vue.prototype.$http = axios
 Vue.config.productionTip = false
 

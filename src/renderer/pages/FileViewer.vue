@@ -9,7 +9,9 @@
       </v-container>
     </v-dialog>
     <v-btn color="green" @click.native="annotate = true">Annotate</v-btn>
-    <AnnotatorImage :annotateMode.sync="annotate"/>
+    <annotator :annotateMode.sync="annotate">
+      <ImageViewer />
+    </annotator>
   </div>
 </template>
 
@@ -19,8 +21,9 @@ import { mapActions } from 'vuex'
 export default {
   name: 'FileViewer',
   components: {
-    AnnotatorImage: () => import('@/components/AnnotatorImage'),
-    Telecommand: () => import('@/components/TelecommandChooser')
+    Annotator: () => import('@/components/Annotator'),
+    Telecommand: () => import('@/components/TelecommandChooser'),
+    ImageViewer: () => import('@/components/FvViewerImage')
   },
   data () {
     return {
