@@ -9,6 +9,12 @@ const s = function (sketch) {
   let [x, y, w, h] = [0, 0, 0, 0]
   shape.count = 0
 
+  let zoom = 1.00
+  let zDirection = false
+  let zMin = 0.05
+  let zMax = 9.00
+  let sensitivity = 0.00005
+
   const main = {
     preload () {
       if (annotations < 1) {
@@ -23,8 +29,14 @@ const s = function (sketch) {
       sketch.noLoop()
     },
 
-    resize (width, height) {
+    resize (width, height, ratio) {
       sketch.resizeCanvas(width, height)
+      if (ratio) {
+        sketch.clear()
+        for (let rect of annotations) {
+          rect.scale(ratio)
+        }
+      }
     },
 
     annotateMode (listener) {
@@ -40,6 +52,20 @@ const s = function (sketch) {
       }
       for (let rect of annotations) {
         rect.show()
+      }
+    },
+
+    mouseWheel (event) {
+      if (event.ctrlKey) {
+        sketch.clear()
+        let nowDirection = (event.delta > 0)
+        zoom -= sensitivity * event.delta
+        zoom = sketch.constrain(zoom, zMin, zMax)
+        if (zDirection !== (nowDirection)) zoom = 1
+        for (let rect of annotations) {
+          rect.scale(zoom)
+        }
+        zDirection = nowDirection
       }
     },
 

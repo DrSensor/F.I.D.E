@@ -1,13 +1,11 @@
 <template>
-  <div :style="styles" id="container">
-    <img :height="height" :width="width" :src="source" draggable="false" alt="File not found" />
-  </div>
+  <img class="scroll" :height="height" :width="width" :src="source" draggable="false" alt="File not found" />
 </template>
 
 <script>
 // https://vuejs.org/v2/examples/elastic-header.html
 export default {
-  name: 'FvViewerPdf',
+  name: 'FvViewerImage',
   data () {
     return {
       height: 'auto',
@@ -20,8 +18,7 @@ export default {
 </script>
 
 <style scoped>
-#container {
-
+.scroll {
+  /* overflow: scroll; */
 }
 </style>
-

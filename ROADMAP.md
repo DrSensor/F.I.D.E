@@ -30,9 +30,9 @@
   - [ ] [AWSIoT](http://docs.aws.amazon.com/iot/latest/apireference)
   - [ ] [emqtt](http://emqtt.io/docs/v2/rest.html#routes)
   - [ ] ** [Arduino Cloud](https://cloud.arduino.cc)
-  - [ ] ** [ThingsBoard](https://thingsboard.io/docs/api/)
+  - [ ] * [ThingsBoard](https://thingsboard.io/docs/api/)
 - Integrate with one of the following Cloud/Local Storage
-  - [x] All OS (Windows, Linux, Mac) local and network storage
+  - [x] All OS (Windows, **Linux**, Mac) local and network storage
   - [ ] ** [Google Drive](https://developers.google.com/drive/v3/reference/)
   - [ ] [BIM360 docs](https://developer.autodesk.com/en/docs/data/v2/reference/http/)
   - [ ] ** [Dropbox](https://dropbox.github.io/dropbox-api-v2-explorer/)
@@ -43,9 +43,9 @@
 
 ## Feature on going near `v2.x.x`
 - Redesign the UI and UX:
-  - [ ] Graph relation explorer view
+  - [ ] ** Graph (node-vertex) relation explorer view
   - [ ] device explorer view
-  - [ ] tree view on sidemenu
+  - [ ] folder tree view on sidemenu
 - [ ] trace Folder-File by version (if integrate with Cloud Storage)
 - [ ] Folder-File Statistics
 - [ ] ** Sensor/Device Statistics

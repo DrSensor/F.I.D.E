@@ -1,4 +1,5 @@
 import Shape from './shape'
+// import BN from 'bignumber' /** TODO: fix bug from over zoom-out/resizing */
 
 let sketch
 export const register = s => { sketch = s }
@@ -72,6 +73,14 @@ export default class Rect extends Shape {
     sketch.stroke('yellow')
     sketch.strokeWeight(this.wt + 2)
     sketch.rect(this.x, this.y, this.w, this.h)
+  }
+
+  scale (f) {
+    this.x *= f
+    this.y *= f
+    this.w *= f
+    this.h *= f
+    this.show()
   }
 
   leftResize () {
