@@ -1,6 +1,6 @@
 <template>
   <!-- http://www.ecofic.com/about/blog/vue-mouse-modifiers/ -->
-  <div id="sketch" ref="annotator" @mousedown.middle="startDrag" @mousemove="onDrag" align-center @mouseup.middle="stopDrag" @contextmenu="rightClickMenu" @wheel="onResize">
+  <div id="sketch" ref="annotator" @mousedown.middle="startDrag" @mousemove="onDrag" align-center @mouseup="stopDrag" @contextmenu="rightClickMenu" @wheel="onResize">
     <slot>
       <span>Noting to display</span>
     </slot>
@@ -31,8 +31,7 @@ export default {
     return {
       canvas: null,
       dragging: false,
-      start: { offsetX: 0, offsetY: 0 },
-      counter: 0
+      start: { offsetX: 0, offsetY: 0 }
     }
   },
 
@@ -41,19 +40,13 @@ export default {
 
     // https://github.com/vuejs/Discussion/issues/394
     this.$ready(this.canvasResize)
-    window.addEventListener('resize', debounce(this.canvasResize, 33))
+    addEventListener('resize', debounce(this.canvasResize, 33))
   },
 
   watch: {
     annotateMode: function (val) {
       if (val) {
         this.canvas.annotateMode()
-        let interval = setInterval(() => { // I hate to use internal :cry:
-          if (!sketch.annotate) {
-            this.$emit('update:annotateMode', sketch.annotate)
-            clearInterval(interval)
-          }
-        }, 700)
       }
     }
   },
@@ -68,7 +61,6 @@ export default {
         zoom -= sensitivity * event.deltaY
         zoom = clamp(zoom, zMin, zMax)
         if (zDirection !== (nowDirection)) zoom = 1
-        console.log('image: ' + this.counter++)
         let sizes = this.$slots.default.map(slot => {
           slot.elm.width *= zoom
           slot.elm.height *= zoom
@@ -110,6 +102,7 @@ export default {
       }
     },
     stopDrag () {
+      if (this.annotateMode) this.$emit('update:annotateMode', false)
       this.dragging = false
     }
   },

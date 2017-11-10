@@ -80,7 +80,7 @@
 
 <br/>
 
-> \* : *depend on hype or available device on market* \
+> <sub>\* : *depend on hype or available device on market* \
 ** : *chance not to be implemented in the current version*
 
 ---
@@ -106,3 +106,9 @@
       - [ ] Tree view
 - Integration (or get inspired) with [myviz](https://github.com/3sigma/MyViz)
 - utilize [pdfjs in webpack](https://github.com/mozilla/pdf.js/tree/master/examples/webpack)
+
+### Addons/Plugins type
+- [ ] * can import [p5js](http://hello.p5js.org/) sketch to visualize tele-metry/command thing data
+- [ ] can add custom vuex module for integrating with other file/drive storage and IoT services
+- [ ] * plugins for viewing another file type
+> <sub>\* : need to analyze the technical feasibility

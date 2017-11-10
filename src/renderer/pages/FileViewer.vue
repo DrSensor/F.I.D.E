@@ -9,7 +9,7 @@
       </v-container>
     </v-dialog>
     <v-btn color="green" @click.native="annotate = true">Annotate</v-btn>
-    <annotator :annotateMode.sync="annotate">
+    <annotator :annotateMode.sync="annotate" @update:annotateMode="annotationDialog">
       <ImageViewer />
     </annotator>
   </div>
@@ -34,7 +34,10 @@ export default {
   methods: {
     ...mapActions('iotServices/awsIot', [
       'listThings'
-    ])
+    ]),
+    annotationDialog (annotateMode) {
+      if (!annotateMode) this.dialog = true
+    }
   }
 }
 </script>

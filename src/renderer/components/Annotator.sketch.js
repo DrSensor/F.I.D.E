@@ -6,6 +6,7 @@ const s = function (sketch) {
   // global variable
   register(sketch)
   let beginDrawAnnotation = false
+  let setupDone = false
   let [x, y, w, h] = [0, 0, 0, 0]
   shape.count = 0
 
@@ -26,7 +27,9 @@ const s = function (sketch) {
 
     setup () {
       sketch.createCanvas()
+      sketch.clear()
       sketch.noLoop()
+      setupDone = true
     },
 
     resize (width, height, ratio) {
@@ -39,7 +42,7 @@ const s = function (sketch) {
       }
     },
 
-    annotateMode (listener) {
+    annotateMode () {
       sketch.cursor('crosshair')
       beginDrawAnnotation = true
     },
@@ -70,7 +73,7 @@ const s = function (sketch) {
     },
 
     mouseMoved () {
-      if (!beginDrawAnnotation) {
+      if (!beginDrawAnnotation && setupDone) {
         sketch.clear()
         for (let rect of annotations) {
           rect.hover()
@@ -89,7 +92,6 @@ const s = function (sketch) {
         for (let rect of annotations) {
           if (rect.inPadArea()) rect.startResize()
           else rect.startDrag()
-
           /** snippet for deleting shape */
           // if (sketch.mouseButton === sketch.RIGHT && rect.inBoundary()) {
           //   annotations.splice(rect.id, 1)
