@@ -114,7 +114,7 @@ export default class Rect extends Shape {
 
   padding () {
     let [mouseX, mouseY] = [sketch.mouseX, sketch.mouseY]
-    let cursorIdentifier = 'none'
+    let cursorIdentifier = 'default'
     let position = 'none'
     let [leftX, rightX, topY, bottomY, pad] = [this.x, this.x + this.w, this.y, this.y + this.h, this.wt + 5]
 
@@ -127,10 +127,10 @@ export default class Rect extends Shape {
     let rightTop = (rightX - pad < mouseX && mouseX < rightX && topY < mouseY && mouseY < topY + pad)
     let leftBottom = (leftX < mouseX && mouseX < leftX + pad && bottomY - pad < mouseY && mouseY < bottomY)
 
-    cursorIdentifier = (left || right) ? this.VERTICAL : cursorIdentifier
-    cursorIdentifier = (top || bottom) ? this.HORIZONTAL : cursorIdentifier
-    cursorIdentifier = leftTop || rightBottom ? this.MAIN_DIAGONAL : cursorIdentifier
-    cursorIdentifier = rightTop || leftBottom ? this.ANTI_DIAGONAL : cursorIdentifier
+    cursorIdentifier = left || right ? this.CURSOR.VERTICAL : cursorIdentifier
+    cursorIdentifier = top || bottom ? this.CURSOR.HORIZONTAL : cursorIdentifier
+    cursorIdentifier = leftTop || rightBottom ? this.CURSOR.MAIN_DIAGONAL : cursorIdentifier
+    cursorIdentifier = rightTop || leftBottom ? this.CURSOR.ANTI_DIAGONAL : cursorIdentifier
     position = left ? 'left' : position
     position = right ? 'right' : position
     position = top ? 'top' : position
