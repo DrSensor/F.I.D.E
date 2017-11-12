@@ -12,6 +12,10 @@ export default class Shape {
     shape.count++
     this.dragged = false
     this.id = shape.count - 1
+    this.VERTICAL = 'vertical'
+    this.HORIZONTAL = 'horizontal'
+    this.MAIN_DIAGONAL = 'main diagonal'
+    this.ANTI_DIAGONAL = 'anti diagonal'
   }
 
   hover () {
@@ -35,8 +39,8 @@ export default class Shape {
       this.offsetX = this.x - mouseX
       this.offsetY = this.y - mouseY
       this.dragged = true
-      sketch.clear()
       sketch.cursor('move')
+      sketch.clear()
     }
   }
   stopDrag () {
@@ -48,16 +52,16 @@ export default class Shape {
   inPadArea () {
     let cursor = this.padding()[0]
     switch (cursor) {
-      case 'vertical':
+      case this.VERTICAL:
         sketch.cursor('ew-resize')
         return true
-      case 'horizontal':
+      case this.HORIZONTAL:
         sketch.cursor('ns-resize')
         return true
-      case 'main diagonal':
+      case this.MAIN_DIAGONAL:
         sketch.cursor('nwse-resize')
         return true
-      case 'anti diagonal':
+      case this.ANTI_DIAGONAL:
         sketch.cursor('nesw-resize')
         return true
       default:
@@ -66,11 +70,11 @@ export default class Shape {
   }
   startResize () {
     // let [mouseX, mouseY, mouseButton] = [sketch.mouseX, sketch.mouseY, sketch.mouseButton]
-    sketch.clear()
     this.resized = this.inPadArea()
     if (this.resized) {
       this.pos = this.padding()[1]
     }
+    sketch.clear()
   }
   stopResize () {
     this.resized = false
@@ -83,7 +87,6 @@ export default class Shape {
     if (this.dragged) {
       this.x = sketch.mouseX + this.offsetX
       this.y = sketch.mouseY + this.offsetY
-      if (this.id === 0) sketch.clear()
       this.drawAtDrag()
     } else if (this.resized) {
       this.drawAtResize(this.pos)

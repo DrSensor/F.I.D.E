@@ -12,9 +12,9 @@ const s = function (sketch) {
 
   let zoom = 1.00
   let zDirection = false
-  let zMin = 0.05
-  let zMax = 9.00
-  let sensitivity = 0.00005
+  const ZOOM_MIN = 0.05
+  const ZOOM_MAX = 9.00
+  const ZOOM_SENSITIVITY = 0.00005
 
   const main = {
     preload () {
@@ -30,6 +30,7 @@ const s = function (sketch) {
       sketch.clear()
       sketch.noLoop()
       setupDone = true
+      sketch.redraw()
     },
 
     resize (width, height, ratio) {
@@ -48,6 +49,7 @@ const s = function (sketch) {
     },
 
     draw () {
+      sketch.clear()
       if (sketch.annotate) {
         sketch.push()
         annotations[annotations.length - 1].draw(x, y, w, h, 2)
@@ -62,8 +64,8 @@ const s = function (sketch) {
       if (event.ctrlKey) {
         sketch.clear()
         let nowDirection = (event.delta > 0)
-        zoom -= sensitivity * event.delta
-        zoom = sketch.constrain(zoom, zMin, zMax)
+        zoom -= ZOOM_SENSITIVITY * event.delta
+        zoom = sketch.constrain(zoom, ZOOM_MIN, ZOOM_MAX)
         if (zDirection !== (nowDirection)) zoom = 1
         for (let rect of annotations) {
           rect.scale(zoom)
@@ -102,8 +104,6 @@ const s = function (sketch) {
     },
 
     mouseDragged () {
-      // TODO: threshold mouse drag speed
-      sketch.clear()
       if (sketch.annotate) {
         w = sketch.mouseX - x
         h = sketch.mouseY - y

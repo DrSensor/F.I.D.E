@@ -114,36 +114,32 @@ export default class Rect extends Shape {
 
   padding () {
     let [mouseX, mouseY] = [sketch.mouseX, sketch.mouseY]
-    // let [vertical, horizontal, mainDiagonal, antiDiagonal] = [false, false, false, false]
-    let identifier = 'none'
+    let cursorIdentifier = 'none'
     let position = 'none'
     let [leftX, rightX, topY, bottomY, pad] = [this.x, this.x + this.w, this.y, this.y + this.h, this.wt + 5]
 
     let left = (leftX < mouseX && mouseX < leftX + pad && topY < mouseY && mouseY < bottomY)
     let right = (rightX - pad < mouseX && mouseX < rightX && topY < mouseY && mouseY < bottomY)
-    identifier = (left || right) ? 'vertical' : identifier
-    position = left ? 'left' : position
-    position = right ? 'right' : position
-
     let top = (topY < mouseY && mouseY < topY + pad && leftX < mouseX && mouseX < rightX)
     let bottom = (bottomY - pad < mouseY && mouseY < bottomY && leftX < mouseX && mouseX < rightX)
-    identifier = (top || bottom) ? 'horizontal' : identifier
-    position = top ? 'top' : position
-    position = bottom ? 'bottom' : position
-
     let leftTop = (leftX < mouseX && mouseX < leftX + pad && topY < mouseY && mouseY < topY + pad)
     let rightBottom = (rightX - pad < mouseX && mouseX < rightX && bottomY - pad < mouseY && mouseY < bottomY)
-    identifier = leftTop || rightBottom ? 'main diagonal' : identifier
-    position = leftTop ? 'left top' : position
-    position = rightBottom ? 'right bottom' : position
-
     let rightTop = (rightX - pad < mouseX && mouseX < rightX && topY < mouseY && mouseY < topY + pad)
     let leftBottom = (leftX < mouseX && mouseX < leftX + pad && bottomY - pad < mouseY && mouseY < bottomY)
-    identifier = rightTop || leftBottom ? 'anti diagonal' : identifier
+
+    cursorIdentifier = (left || right) ? this.VERTICAL : cursorIdentifier
+    cursorIdentifier = (top || bottom) ? this.HORIZONTAL : cursorIdentifier
+    cursorIdentifier = leftTop || rightBottom ? this.MAIN_DIAGONAL : cursorIdentifier
+    cursorIdentifier = rightTop || leftBottom ? this.ANTI_DIAGONAL : cursorIdentifier
+    position = left ? 'left' : position
+    position = right ? 'right' : position
+    position = top ? 'top' : position
+    position = bottom ? 'bottom' : position
+    position = leftTop ? 'left top' : position
+    position = rightBottom ? 'right bottom' : position
     position = rightTop ? 'right top' : position
     position = leftBottom ? 'left bottom' : position
 
-    // if (leftX < mouseX && mouseX < leftX + pad && topY < mouseY && mouseY < bottomY) sketch.cursor('wait')
-    return [identifier, position]
+    return [cursorIdentifier, position]
   }
 }
