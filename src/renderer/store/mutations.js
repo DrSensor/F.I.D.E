@@ -2,11 +2,11 @@ const mutations = {
   'ERROR' (state, payload) {
     state.error_detail = payload
   },
-  'REQUEST_CALL]loading' (state, payload) {
-    state.requesting = true
+  'SUBSCRIBED_TOPIC]add' (state, topic) {
+    state.subscribedTopics += [topic]
   },
-  'REQUEST_CALL]finish' (state, payload) {
-    state.requesting = false
+  'PUBLISHED_TOPIC]add' (state, topic) {
+    state.publishedTopics += [topic]
   }
 }
 

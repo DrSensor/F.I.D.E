@@ -4,11 +4,14 @@ const STORE_STATE = {
     message: '',
     meta: {}
   },
-  requesting: false
+  subscribedTopics: [],
+  publishedTopics: [],
+  annotations: []
 }
 
 const getters = {
-  errorMessage: state => state.error_detail.message
+  errorMessage: state => state.error_detail.message,
+  requesting: state => state.fileManagers.opening || state.iotServices.requesting
 }
 
 const state = function () {

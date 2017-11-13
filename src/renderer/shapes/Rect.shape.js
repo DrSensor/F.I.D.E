@@ -33,34 +33,56 @@ export default class Rect extends Shape {
     sketch.noFill()
     sketch.stroke('blue')
     sketch.strokeWeight(this.wt)
+
+    const leftResize = () => {
+      let diff = this.x - sketch.mouseX
+      this.x = sketch.mouseX - this.wt
+      this.w = Math.abs(this.w + diff + this.wt)
+    }
+    const rightResize = () => {
+      let diff = sketch.mouseX - this.x + this.wt
+      this.w = diff > 0 ? diff : 0
+      this.x = diff < 0 ? sketch.mouseX + this.wt : this.x
+    }
+    const topResize = () => {
+      let diff = this.y - sketch.mouseY
+      this.y = sketch.mouseY - this.wt
+      this.h = Math.abs(this.h + diff + this.wt)
+    }
+    const bottomResize = () => {
+      let diff = sketch.mouseY - this.y + this.wt
+      this.h = diff > 0 ? diff : 0
+      this.y = diff < 0 ? sketch.mouseY + this.wt : this.y
+    }
+
     switch (position) {
       case 'left':
-        this.leftResize()
+        leftResize()
         break
       case 'right':
-        this.rightResize()
+        rightResize()
         break
       case 'top':
-        this.topResize()
+        topResize()
         break
       case 'bottom':
-        this.bottomResize()
+        bottomResize()
         break
       case 'left top':
-        this.leftResize()
-        this.topResize()
+        leftResize()
+        topResize()
         break
       case 'right top':
-        this.rightResize()
-        this.topResize()
+        rightResize()
+        topResize()
         break
       case 'left bottom':
-        this.leftResize()
-        this.bottomResize()
+        leftResize()
+        bottomResize()
         break
       case 'right bottom':
-        this.rightResize()
-        this.bottomResize()
+        rightResize()
+        bottomResize()
         break
       default:
         break
@@ -81,30 +103,6 @@ export default class Rect extends Shape {
     this.w *= f
     this.h *= f
     this.show()
-  }
-
-  leftResize () {
-    let diff = this.x - sketch.mouseX
-    this.x = sketch.mouseX - this.wt
-    this.w = Math.abs(this.w + diff + this.wt)
-  }
-
-  rightResize () {
-    let diff = sketch.mouseX - this.x + this.wt
-    this.w = diff > 0 ? diff : 0
-    this.x = diff < 0 ? sketch.mouseX + this.wt : this.x
-  }
-
-  topResize () {
-    let diff = this.y - sketch.mouseY
-    this.y = sketch.mouseY - this.wt
-    this.h = Math.abs(this.h + diff + this.wt)
-  }
-
-  bottomResize () {
-    let diff = sketch.mouseY - this.y + this.wt
-    this.h = diff > 0 ? diff : 0
-    this.y = diff < 0 ? sketch.mouseY + this.wt : this.y
   }
 
   boundary () {
