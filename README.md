@@ -18,11 +18,11 @@
 
 
 ## Overview
-This app aims to help manage and explore IoT Data by taking File Explorer like app approach. In this case the data can be from third party MQTT broker (e.g AWSIoT).
+This app aims to help manage and explore IoT Data by taking File Explorer like app approach. In this case the data can be from third party MQTT broker (e.g AWSIoT or Mosquitto).
 
 <!-- Insert GIF Image for application Demo HERE-->
 
-The idea are each MQTT topic can be linked to file or folder from your local drive or Cloud Drive Storage (e.g Google Drive, BIM360 docs). Then you can explore the file and the real time data at the same time. Some benefit of this that you can relate IoT device to Floor Plan drawing (mostly in pdf).
+The idea are each MQTT topic can be linked to file or folder from your local drive or Cloud Drive Storage (e.g Google Drive, BIM360 docs). Then you can explore the file and the real time data at the same time. Some benefit of this that you can relate IoT device to Floor Plan drawing then the drawing can be interact to control/monitor devices.
 
 ## Use case
 Some use case that this app can do:

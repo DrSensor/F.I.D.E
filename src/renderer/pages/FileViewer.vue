@@ -36,11 +36,9 @@ export default {
       'listThings'
     ]),
     annotationUpdate (annotations) {
-      console.log(annotations)
     },
     annotationDialog (annotation) {
       this.dialog = true
-      console.log(annotation)
     }
   }
 }
