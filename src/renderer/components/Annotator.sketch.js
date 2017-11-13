@@ -84,13 +84,13 @@ const s = function (sketch) {
       }
     },
 
-    mousePressed () {
+    mousePressed (event) {
       if (beginDrawAnnotation) {
         x = sketch.mouseX
         y = sketch.mouseY
         annotations.push(new Rect(x, y, w, h, 2))
         sketch.annotate = true
-      } else {
+      } else if (sketch.mouseButton === sketch.LEFT) {
         for (let rect of annotations) {
           if (rect.inPadArea()) rect.startResize()
           else rect.startDrag()

@@ -35,10 +35,10 @@ export default class Shape {
 
   inBoundary () { return this.boundary() }
   startDrag () {
-    let [mouseX, mouseY, mouseButton] = [sketch.mouseX, sketch.mouseY, sketch.mouseButton]
-    if (this.boundary() && mouseButton === sketch.LEFT) {
-      this.offsetX = this.x - mouseX
-      this.offsetY = this.y - mouseY
+    let [mouseX, mouseY] = [sketch.mouseX, sketch.mouseY]
+    if (this.boundary()) {
+      this._offsetX = this.x - mouseX
+      this._offsetY = this.y - mouseY
       this._dragged = true
       sketch.cursor('move')
       sketch.clear()
@@ -61,7 +61,6 @@ export default class Shape {
     return false
   }
   startResize () {
-    // let [mouseX, mouseY, mouseButton] = [sketch.mouseX, sketch.mouseY, sketch.mouseButton]
     this._resized = this.inPadArea()
     if (this._resized) {
       this._pos = this.padding()[1]
@@ -77,8 +76,8 @@ export default class Shape {
   show () {
     sketch.push()
     if (this._dragged) {
-      this.x = sketch.mouseX + this.offsetX
-      this.y = sketch.mouseY + this.offsetY
+      this.x = sketch.mouseX + this._offsetX
+      this.y = sketch.mouseY + this._offsetY
       this.drawAtDrag()
     } else if (this._resized) {
       this.drawAtResize(this._pos)

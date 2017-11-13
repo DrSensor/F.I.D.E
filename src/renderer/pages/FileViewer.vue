@@ -1,15 +1,14 @@
 <template>
   <div id="viewer">
     <v-btn @click='listThings()'>list things</v-btn>
-    <v-dialog v-model="dialog" max-width="500px">
-      <v-btn color="orange" slot="activator">Telemetry</v-btn>
-      <v-container>
-        <h5>Telemetry</h5>
-        <Telecommand />
-      </v-container>
+    <v-dialog v-model="dialog" max-width="500px" lazy scrollable>
+      <v-btn color="orange" slot="activator">Telemetry</v-btn>      
+      <!-- <v-container> -->
+        <ThingDialog />
+      <!-- </v-container> -->
     </v-dialog>
     <v-btn color="green" @click.native="annotate = true">Annotate</v-btn>
-    <annotator :annotateMode.sync="annotate" @update:annotateMode="annotationDialog">
+    <annotator :annotating.sync="annotate" @add="annotationDialog" @change="annotationUpdate">
       <ImageViewer />
     </annotator>
   </div>
@@ -23,7 +22,8 @@ export default {
   components: {
     Annotator: () => import('@/components/Annotator'),
     Telecommand: () => import('@/components/TelecommandChooser'),
-    ImageViewer: () => import('@/components/FvViewerImage')
+    ImageViewer: () => import('@/components/FvViewerImage'),
+    ThingDialog: () => import('@/components/TeleAllDialog')
   },
   data () {
     return {
@@ -35,8 +35,12 @@ export default {
     ...mapActions('iotServices/awsIot', [
       'listThings'
     ]),
-    annotationDialog (annotateMode) {
-      if (!annotateMode) this.dialog = true
+    annotationUpdate (annotations) {
+      console.log(annotations)
+    },
+    annotationDialog (annotation) {
+      this.dialog = true
+      console.log(annotation)
     }
   }
 }

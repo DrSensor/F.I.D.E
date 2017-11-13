@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import sketch from './Annotator.sketch'
-import { clamp, debounce } from 'lodash'
+import sketch, { annotations } from './Annotator.sketch'
+import { clamp, debounce, some } from 'lodash'
 import P5 from 'p5'
 
 let zoom = 1.00
@@ -21,7 +21,7 @@ let sensitivity = 0.00005
 export default {
   name: 'Annotator',
   props: {
-    annotateMode: {
+    annotating: {
       default: false,
       type: Boolean
     }
@@ -44,7 +44,7 @@ export default {
   },
 
   watch: {
-    annotateMode: function (val) {
+    annotating: function (val) {
       if (val) {
         this.canvas.annotateMode()
       }
@@ -101,8 +101,16 @@ export default {
         this.$refs['annotator'].scrollTop = y
       }
     },
-    stopDrag () {
-      if (this.annotateMode) this.$emit('update:annotateMode', false)
+    stopDrag (event) {
+      if (event.button === 0) {
+        if (this.annotating) {
+          this.$emit('update:annotating', false)
+          let annotation = annotations[annotations.length - 1]
+          this.$emit('add', annotation)
+        }
+        let changed = some(annotations, annotation => annotation.inBoundary())
+        if (changed) this.$emit('change', annotations)
+      }
       this.dragging = false
     }
   },

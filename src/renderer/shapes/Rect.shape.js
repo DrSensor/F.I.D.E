@@ -85,26 +85,26 @@ export default class Rect extends Shape {
 
   leftResize () {
     let diff = this.x - sketch.mouseX
-    this.x = sketch.mouseX
-    this.w = Math.abs(this.w + diff)
+    this.x = sketch.mouseX - this.wt
+    this.w = Math.abs(this.w + diff + this.wt)
   }
 
   rightResize () {
-    let diff = sketch.mouseX - this.x
+    let diff = sketch.mouseX - this.x + this.wt
     this.w = diff > 0 ? diff : 0
-    this.x = diff < 0 ? sketch.mouseX : this.x
+    this.x = diff < 0 ? sketch.mouseX + this.wt : this.x
   }
 
   topResize () {
     let diff = this.y - sketch.mouseY
-    this.y = sketch.mouseY
-    this.h = Math.abs(this.h + diff)
+    this.y = sketch.mouseY - this.wt
+    this.h = Math.abs(this.h + diff + this.wt)
   }
 
   bottomResize () {
-    let diff = sketch.mouseY - this.y
+    let diff = sketch.mouseY - this.y + this.wt
     this.h = diff > 0 ? diff : 0
-    this.y = diff < 0 ? sketch.mouseY : this.y
+    this.y = diff < 0 ? sketch.mouseY + this.wt : this.y
   }
 
   boundary () {
