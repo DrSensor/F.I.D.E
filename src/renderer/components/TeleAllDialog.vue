@@ -1,5 +1,5 @@
 <template>
-  <v-tabs v-model="title" icons centered grow>
+  <v-tabs v-model="title" dark icons centered grow>
     <h5>{{title}}</h5>
     <v-tabs-items>
       <v-tabs-content id="Telemetry">

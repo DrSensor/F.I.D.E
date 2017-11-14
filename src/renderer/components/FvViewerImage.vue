@@ -10,7 +10,8 @@ export default {
     return {
       height: 'auto',
       width: 'auto',
-      source: 'file:///home/wildan/Pictures/wallhaven-148344.png',
+      // source: 'file:///home/wildan/Pictures/wallhaven-148344.png',
+      source: 'file:///home/wildan/Projects/Sensorfied/f.i.d.e/src/renderer/assets/light.png',
       styles: ''
     }
   }

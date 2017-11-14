@@ -1,18 +1,18 @@
 <template>
   <v-form v-model="valid">
-    <v-text-field prepend-icon="supervisor_account" 
-                  label="Access key ID" 
-                  v-model="accessKey" 
-                  :rules="accessKeyRules" 
+    <v-text-field prepend-icon="supervisor_account"
+                  label="Access key ID"
+                  v-model="accessKey"
+                  :rules="accessKeyRules"
                   required
     ></v-text-field>
     <v-text-field prepend-icon="vpn_key"
                   :append-icon="keyVisible ? 'visibility' : 'visibility_off'"
                   :append-icon-cb="() => (keyVisible = !keyVisible)"
                   :type="keyVisible ? 'password' : 'text'"
-                  label="Secret access key" 
-                  v-model="secretKey" 
-                  :rules="secretKeyRules" 
+                  label="Secret access key"
+                  v-model="secretKey"
+                  :rules="secretKeyRules"
                   required
     ></v-text-field>
     <v-text-field prepend-icon="public" label="Region" v-model="region" :rules="regionRules" required></v-text-field>

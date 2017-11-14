@@ -1,11 +1,11 @@
 <template>
   <div id="viewer">
     <v-btn @click='listThings()'>list things</v-btn>
-    <v-dialog v-model="dialog" max-width="500px" lazy scrollable>
+    <v-dialog v-model="dialog" max-width="720px" lazy scrollable>
       <v-btn color="orange" slot="activator">Telemetry</v-btn>      
-      <!-- <v-container> -->
+      <v-container class="indigo">
         <ThingDialog />
-      <!-- </v-container> -->
+      </v-container>
     </v-dialog>
     <v-btn color="green" @click.native="annotate = true">Annotate</v-btn>
     <annotator :annotating.sync="annotate" @add="annotationDialog" @change="annotationUpdate">

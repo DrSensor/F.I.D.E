@@ -2,21 +2,23 @@
   <v-form v-model="valid">
     <h6 class="accent--text">Select/set source</h6>
     <div v-html="markdown('------')"></div>
-    <v-select prepend-icon="settings_remote" 
-              label="thing name" 
-              :items="thingsName" 
-              v-model="thingName" 
-              autocomplete required
+    <v-select prepend-icon="settings_remote"
+              v-model="thingName"
+              :rules="thingNameRules"
+              :items="thingsName"
+              label="thing name"
+              :multiple="false" required
     ></v-select>
-    <v-text-field prepend-icon="hearing" 
-                  label="quantity/variable name" 
-                  :hint="markdown('e.g: __temperature__')" 
-                  v-model="telemetryName" 
+    <v-text-field prepend-icon="hearing"
+                  v-model="telemetryName"
+                  :rules="telemetryNameRules"
+                  :hint="markdown('e.g: __temperature__')"
+                  label="quantity/variable name"
                   required
     ></v-text-field>
 
-    <v-btn color="primary" :disabled="!valid" @click.native="set()">
-      Set
+    <v-btn color="primary" :disabled="!valid" @click.native="watch()">
+      Watch Topic
     </v-btn>
 
     <template v-if="valid">
@@ -50,13 +52,24 @@ let markdown = new showdown.Converter()
 export default {
   name: 'TelemetryChooser',
   data () {
+    let regexThingName = /[-_\w\d]+/
+    let regexTelemetryName = /[a-z]+/
     return {
       valid: false,
       thingName: '',
+      thingNameRules: [
+        str => regexThingName.test(str) || 'only `a-Z`, `-`, and `_` allowed'
+      ],
       telemetryName: '',
+      telemetryNameRules: [
+        str => regexTelemetryName.test(str) || 'only lower case character allowed'
+      ],
       hideSubscribedTopic: true,
       subscribedTopic: ''
     }
+  },
+  watch: {
+    valid: function (val) { this.hideSubscribedTopic = val }
   },
   computed: {
     ...mapState('iotServices', ['things']),
@@ -73,8 +86,9 @@ export default {
     }
   },
   methods: {
-    set () {
+    watch () {
       this.$emit('set')
+      this.$store.commit('SUBSCRIBE_TOPIC]add', this.topic)
     },
     markdown: text => markdown.makeHtml(text)
   }
