@@ -42,7 +42,7 @@ export const filesSchema = new Schema({
       name: { type: 'string' },
       uri: {
         type: 'string'
-        // pattern: '\\g' // uri pattern
+        // pattern: '/^$/' // uri pattern
       },
       type: { type: 'string' },
       thumbnail: {

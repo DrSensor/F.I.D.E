@@ -45,19 +45,24 @@ commit 2: add bar option
 
 ### Git Commit Messages
 
-- Use the present tense ("Add feature" not "Added feature")
-- Use the imperative mood ("Move cursor to..." not "Moves cursor to...")
+- Use the present tense (`add feature` not `added feature`)
+- Use the imperative mood (`move cursor to...` not `moves cursor to...`)
 - Try to limit the length of commit message
+- For long commit message, make it per point and use `-` in commit description
 - Reference issues and pull requests liberally after the first line, if applicable
+- When need emoticon, use it at the end of sentence (`add explosion :boom:`)
 
 ## For Collaborators
 
-Make sure to get a `:thumbsup:`, `+1` or `LGTM` from another collaborator before merging a PR.
+This is mandatory but make sure to get a `:thumbsup:`, `+1` or `LGTM` from another collaborator before merging a PR.
 
 ## Development Guide
 
-See [DEVELOPMENT.md](./DEVELOPMENT.md) for any technical guide like: 
-- building and testing project locally, 
-- project structure, 
-- style guide, and 
+This project was generated with [electron-vue](https://github.com/SimulatedGREG/electron-vue)@[de85f81](https://github.com/SimulatedGREG/electron-vue/tree/de85f81890c01500113738bfe57bef136f9fbf52) using [vue-cli](https://github.com/vuejs/vue-cli). Documentation about the original structure can be found [here](https://simulatedgreg.gitbooks.io/electron-vue/content/index.html).
+
+See [DEVELOPMENT.md](./DEVELOPMENT.md) for any technical guide like:
+
+- building and testing project locally,
+- project structure,
+- style guide, and
 - best practice.

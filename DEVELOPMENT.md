@@ -2,6 +2,8 @@
 #### Build Setup
 
 ``` bash
+yarn add electron --dev --unsafe-perm=true
+
 # install dependencies (better to use yarn for dependency lock consistency)
 yarn
 

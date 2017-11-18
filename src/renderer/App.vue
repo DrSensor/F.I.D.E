@@ -1,17 +1,15 @@
 <template>
-  <div id="app">
-    <v-app dark>
-      <LeftSidebar :toggle='sidebar' />
-      <HeaderToolbar id="header" @show-sidebar='val => { sidebar = val }' />
-      <main>
-        <v-content>
-          <v-slide-y-transition mode="out-in">
-            <router-view></router-view>
-          </v-slide-y-transition>
-        </v-content>
-      </main>
-    </v-app>
-  </div>
+  <v-app dark>
+    <LeftSidebar :toggle='sidebar' />
+    <HeaderToolbar id="header" @show-sidebar='val => { sidebar = val }' />
+    <main>
+      <v-content style="padding-top: 0px;">
+        <v-slide-y-transition mode="out-in">
+          <router-view></router-view>
+        </v-slide-y-transition>
+      </v-content>
+    </main>
+  </v-app>
 </template>
 
 <script>

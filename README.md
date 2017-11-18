@@ -1,6 +1,6 @@
 <h1>
     <span>F.I.D.E</span> 
-    <span><img src="build/icons/256x256.png" alt="Field IoT Data/Device Explorer" height="56px"></span>
+    <span><img src="build/icons/256x256.png" alt="Field IoT Data/Device Explorer" align="right"></span>
     <span>(WIP)</span>
 </h1>
 \fɪdˈɛ\
@@ -44,11 +44,7 @@ All individuals can contribute by making Pull-Request but only individuals that 
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md) and [openopensource.org](http://openopensource.org/) for more details.
 
-
-
 ---
-This project was generated with [electron-vue](https://github.com/SimulatedGREG/electron-vue)@[de85f81](https://github.com/SimulatedGREG/electron-vue/tree/de85f81890c01500113738bfe57bef136f9fbf52) using [vue-cli](https://github.com/vuejs/vue-cli). Documentation about the original structure can be found [here](https://simulatedgreg.gitbooks.io/electron-vue/content/index.html).
-
 
 ## License
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FDrSensor%2FF.I.D.E.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FDrSensor%2FF.I.D.E?ref=badge_large)
