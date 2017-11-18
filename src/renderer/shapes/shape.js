@@ -21,7 +21,7 @@ export default class Shape {
 
   hover () {
     sketch.push()
-    if (this.boundary()) {
+    if (this.overlapCondition(sketch.mouseX, sketch.mouseY)) {
       shape.hoverStatus[this._id] = true
       sketch.cursor('pointer')
       this.drawAtHover()
@@ -33,10 +33,15 @@ export default class Shape {
     sketch.pop()
   }
 
-  inBoundary () { return this.boundary() }
+  isOverlap (...args) {
+    if (args.length === 2) {
+      let [x, y] = args
+      return this.overlapCondition(x, y)
+    } else return this.overlapCondition(sketch.mouseX, sketch.mouseY)
+  }
   startDrag () {
     let [mouseX, mouseY] = [sketch.mouseX, sketch.mouseY]
-    if (this.boundary()) {
+    if (this.overlapCondition(mouseX, mouseY)) {
       this._offsetX = this.x - mouseX
       this._offsetY = this.y - mouseY
       this._dragged = true
@@ -46,12 +51,17 @@ export default class Shape {
   }
   stopDrag () {
     this._dragged = false
-    if (this.boundary()) sketch.cursor('pointer')
+    if (this.overlapCondition()) sketch.cursor('pointer')
     else sketch.cursor('default')
   }
 
-  inPadArea () {
-    let cursor = this.padding()[0]
+  isIntersect (...args) {
+    let cursor = 'default'
+    if (args.length === 2) {
+      let [x, y] = args
+      cursor = this.intersectCondition(x, y)[0]
+    } else cursor = this.intersectCondition(sketch.mouseX, sketch.mouseY)[0]
+
     for (let key in this.CURSOR) {
       if (this.CURSOR[key] === cursor) {
         sketch.cursor(cursor)
@@ -61,15 +71,15 @@ export default class Shape {
     return false
   }
   startResize () {
-    this._resized = this.inPadArea()
+    this._resized = this.isIntersect()
     if (this._resized) {
-      this._pos = this.padding()[1]
+      this._pos = this.intersectCondition(sketch.mouseX, sketch.mouseY)[1]
     }
     sketch.clear()
   }
   stopResize () {
     this._resized = false
-    this._pos = this.padding()[1]
+    this._pos = this.intersectCondition()[1]
     sketch.cursor('pointer')
   }
 

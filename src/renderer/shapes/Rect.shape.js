@@ -105,25 +105,23 @@ export default class Rect extends Shape {
     this.show()
   }
 
-  boundary () {
-    let [mouseX, mouseY] = [sketch.mouseX, sketch.mouseY]
-    return (mouseX > this.x && mouseX < this.x + this.w && mouseY > this.y && mouseY < this.y + this.h)
+  overlapCondition (pointX, pointY) {
+    return (pointX > this.x && pointX < this.x + this.w && pointY > this.y && pointY < this.y + this.h)
   }
 
-  padding () {
-    let [mouseX, mouseY] = [sketch.mouseX, sketch.mouseY]
+  intersectCondition (pointX, pointY) {
     let cursorIdentifier = 'default'
     let position = 'none'
     let [leftX, rightX, topY, bottomY, pad] = [this.x, this.x + this.w, this.y, this.y + this.h, this.wt + 5]
 
-    let left = (leftX < mouseX && mouseX < leftX + pad && topY < mouseY && mouseY < bottomY)
-    let right = (rightX - pad < mouseX && mouseX < rightX && topY < mouseY && mouseY < bottomY)
-    let top = (topY < mouseY && mouseY < topY + pad && leftX < mouseX && mouseX < rightX)
-    let bottom = (bottomY - pad < mouseY && mouseY < bottomY && leftX < mouseX && mouseX < rightX)
-    let leftTop = (leftX < mouseX && mouseX < leftX + pad && topY < mouseY && mouseY < topY + pad)
-    let rightBottom = (rightX - pad < mouseX && mouseX < rightX && bottomY - pad < mouseY && mouseY < bottomY)
-    let rightTop = (rightX - pad < mouseX && mouseX < rightX && topY < mouseY && mouseY < topY + pad)
-    let leftBottom = (leftX < mouseX && mouseX < leftX + pad && bottomY - pad < mouseY && mouseY < bottomY)
+    let left = (leftX < pointX && pointX < leftX + pad && topY < pointY && pointY < bottomY)
+    let right = (rightX - pad < pointX && pointX < rightX && topY < pointY && pointY < bottomY)
+    let top = (topY < pointY && pointY < topY + pad && leftX < pointX && pointX < rightX)
+    let bottom = (bottomY - pad < pointY && pointY < bottomY && leftX < pointX && pointX < rightX)
+    let leftTop = (leftX < pointX && pointX < leftX + pad && topY < pointY && pointY < topY + pad)
+    let rightBottom = (rightX - pad < pointX && pointX < rightX && bottomY - pad < pointY && pointY < bottomY)
+    let rightTop = (rightX - pad < pointX && pointX < rightX && topY < pointY && pointY < topY + pad)
+    let leftBottom = (leftX < pointX && pointX < leftX + pad && bottomY - pad < pointY && pointY < bottomY)
 
     cursorIdentifier = left || right ? this.CURSOR.VERTICAL : cursorIdentifier
     cursorIdentifier = top || bottom ? this.CURSOR.HORIZONTAL : cursorIdentifier

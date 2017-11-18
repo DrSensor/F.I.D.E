@@ -79,7 +79,7 @@ const s = function (sketch) {
         sketch.clear()
         for (let rect of annotations) {
           rect.hover()
-          rect.inPadArea()
+          rect.isIntersect(sketch.mouseX, sketch.mouseY)
         }
       }
     },
@@ -92,10 +92,10 @@ const s = function (sketch) {
         sketch.annotate = true
       } else if (sketch.mouseButton === sketch.LEFT) {
         for (let rect of annotations) {
-          if (rect.inPadArea()) rect.startResize()
+          if (rect.isIntersect(sketch.mouseX, sketch.mouseY)) rect.startResize()
           else rect.startDrag()
           /** snippet for deleting shape */
-          // if (sketch.mouseButton === sketch.RIGHT && rect.inBoundary()) {
+          // if (sketch.mouseButton === sketch.RIGHT && rect.overlap()) {
           //   annotations.splice(rect.id, 1)
           // }
         }

@@ -108,7 +108,7 @@ export default {
           let annotation = annotations[annotations.length - 1]
           this.$emit('add', annotation)
         }
-        let changed = some(annotations, annotation => annotation.inBoundary())
+        let changed = some(annotations, annotation => annotation.isOverlap())
         if (changed) this.$emit('change', annotations)
       }
       this.dragging = false
