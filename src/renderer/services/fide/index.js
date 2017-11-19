@@ -3,31 +3,101 @@ import { DataStore } from 'js-data'
 import { remote } from 'electron'
 import path from 'path'
 
-var adapter = new DSNedbAdapter()
+import { fileSchema, annotationSchema, thingSchema, telemetrySchema, telecommandSchema } from './schema'
 
-var store = new DataStore()
+let adapter = new DSNedbAdapter()
+
+let store = new DataStore({ autoload: true })
 store.registerAdapter('nedb', adapter, { default: true })
+export default store
 
-// "store" will now use the nedb adapter for all async operations
-var User = store.defineMapper({
-  name: 'user',
-  // path where you want the table file for this resource created
-  filepath: path.join(remote.app.getPath('desktop'), 'user.db')
+const fileMapper = {
+  schema: fileSchema,
+  hasMany: {
+    annotation: {
+      foreignKey: 'file_id',
+      localField: 'annotations'
+    }
+  }
+}
+
+export let fileService = store.defineMapper({
+  name: 'file',
+  ...fileMapper,
+  filepath: path.join(remote.app.getPath('desktop'), 'fide/files.db')
 })
 
-adapter.getDb(User).persistence.compactDatafile()
-// nedb handler is available here
-// User.db // don't run custom queries unless you know what you're doing
+export let annotationService = store.defineMapper({
+  name: 'annotation',
+  schema: annotationSchema,
+  hasOne: {
+    thing: {
+      foreignKey: 'annotation_id',
+      localField: 'thing'
+    },
+    telemetry: {
+      foreignKey: 'annotation_id',
+      localField: 'telemetry'
+    },
+    telecommand: {
+      foreignKey: 'annotation_id',
+      localField: 'telecommand'
+    }
+  },
+  filepath: path.join(remote.app.getPath('desktop'), 'fide/annotations.db')
+})
 
-// one method you might want to call is User.db.persistence.compactDatafile()
+export let thingService = store.defineMapper({
+  name: 'thing',
+  schema: thingSchema,
+  hasMany: {
+    telemetry: {
+      foreignKey: 'thing_id',
+      localField: 'telemetrys'
+    },
+    telecommand: {
+      foreignKey: 'thing_id',
+      localField: 'telecommands'
+    }
+  },
+  belongsTo: {
+    annotation: {
+      foreignKey: 'annotation_id',
+      localField: 'annotation'
+    }
+  },
+  filepath: path.join(remote.app.getPath('desktop'), 'fide/things.db')
+})
 
-// var a = User.db
+const teleDataRelation = {
+  belongsTo: {
+    annotation: {
+      foreignKey: 'annotation_id',
+      localField: 'annotation'
+    },
+    thing: {
+      foreignKey: 'thing_id',
+      localField: 'thing'
+    }
+  }
+}
 
-// import Datastore from 'nedb'
-// import path from 'path'
-// import {remote} from 'electron'
+export let telemetryService = store.defineMapper({
+  name: 'telemetry',
+  schema: telemetrySchema,
+  ...teleDataRelation,
+  filepath: path.join(remote.app.getPath('desktop'), 'fide/telemetry.db')
+})
 
-// const alquileresDBPath = path.join(remote.app.getPath('desktop'), 'alquileres.db')
-// const alquileres = new Datastore({filename: alquileresDBPath, autoload: true})
+export let telecommandService = store.defineMapper({
+  name: 'telecommand',
+  schema: telecommandSchema,
+  ...teleDataRelation,
+  filepath: path.join(remote.app.getPath('desktop'), 'fide/telecommand.db')
+})
 
-// console.log(adapter.getDb())
+adapter.getDb(fileService).persistence.compactDatafile()
+adapter.getDb(annotationService).persistence.compactDatafile()
+adapter.getDb(thingService).persistence.compactDatafile()
+adapter.getDb(telemetryService).persistence.compactDatafile()
+adapter.getDb(telecommandService).persistence.compactDatafile()

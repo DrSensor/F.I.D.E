@@ -1,4 +1,4 @@
-import {Schema} from 'js-data'
+import { Schema } from 'js-data'
 
 export const historySchema = new Schema({
   type: 'array',
@@ -46,10 +46,27 @@ export const filesSchema = new Schema({
       },
       type: { type: 'string' },
       thumbnail: {
-        type: 'string'
-        // pattern: '*.jpg|*.png' // check if media
+        type: 'string',
+        pattern: /[.](jpg|jpeg|png)$/i // check if media
       },
       required: ['name', 'uri', 'type']
     }
+  }
+})
+
+export const supportedFileSchema = new Schema({
+  type: 'object',
+  properties: {
+    name: { type: 'string' },
+    uri: {
+      type: 'string',
+      pattern: /[.](jpg|jpeg|png|tiff)$/i // uri pattern
+    },
+    type: { type: 'string' },
+    thumbnail: {
+      type: 'string',
+      pattern: /[.](jpg|jpeg|png)$/i // check if media
+    },
+    required: ['name', 'uri', 'type']
   }
 })

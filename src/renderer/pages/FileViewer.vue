@@ -1,21 +1,22 @@
 <template>
-  <div id="viewer">
+  <v-container id="viewer" fluid>
     <v-btn @click='listThings()'>list things</v-btn>
-    <v-dialog v-model="dialog" max-width="720px" lazy scrollable>
+    <v-dialog v-model="dialog" max-width="720px" :content-class="dialogColor" lazy scrollable>
       <v-btn color="orange" slot="activator">Telemetry</v-btn>      
-      <v-container class="indigo">
-        <ThingDialog />
+      <v-container>
+        <ThingDialog v-model="tab" @set="dialog = false" />
       </v-container>
     </v-dialog>
+    <v-btn color="green" @click.native="registerFileAs('electronic schematic')">Register file as E</v-btn>
     <v-btn color="green" @click.native="annotate = true">Annotate</v-btn>
-    <annotator :annotating.sync="annotate" @add="annotationDialog" @change="annotationUpdate">
-      <ImageViewer />
+    <annotator :annotating.sync="annotate" @add="annotationAdded" @change="annotationUpdated">
+      <ImageViewer :source="openedFile.uri" />
     </annotator>
-  </div>
+  </v-container>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'FileViewer',
@@ -28,16 +29,33 @@ export default {
   data () {
     return {
       dialog: false,
-      annotate: false
+      annotate: false,
+      dialogColor: 'purple'
+    }
+  },
+  computed: {
+    ...mapState('fileManagers', [ 'openedFile' ]),
+    tab: {
+      get: function (val) {
+        return this.activeTab
+      },
+      set: function (val) {
+        if (val === 'Telemetry') this.dialogColor = 'brown'
+        else if (val === 'Telecommand') this.dialogColor = 'indigo'
+        this.activeTab = val
+      }
     }
   },
   methods: {
     ...mapActions('iotServices/awsIot', [
       'listThings'
     ]),
-    annotationUpdate (annotations) {
+    ...mapActions([
+      'registerFileAs'
+    ]),
+    annotationUpdated (annotations) {
     },
-    annotationDialog (annotation) {
+    annotationAdded (annotation) {
       this.dialog = true
     }
   }

@@ -22,6 +22,7 @@ export const openDirectory = (path) => new Promise((resolve, reject) => {
   })
 })
 
+// backup/save project configuration and database
 export const backupImplementation = function () {
   Error('Not yet implemented')
   let options = {

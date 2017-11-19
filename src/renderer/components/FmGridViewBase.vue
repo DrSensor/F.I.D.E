@@ -7,9 +7,9 @@
           <v-icon x-large>{{c.type}}</v-icon>
           <v-spacer/>
         </v-card-media>
-        <v-card-media v-else @click.native="openFile(c)" :src="c.thumbnail">
+        <v-card-media v-else @click.native="viewFile(c.uri)" :src="c.thumbnail">
           <v-spacer/>
-          <v-icon x-large v-if="!c.thumbnail">{{c.type | filetype2mdi}}</v-icon>
+          <v-icon x-large v-if="!c.thumbnail">{{c.type | filetype2materialIcon}}</v-icon>
           <v-spacer/>
         </v-card-media>
         <v-card-text class="text-md-center fade-text" wrap>
@@ -44,11 +44,15 @@ export default {
     ...mapActions('fileManagers/localFiles', [
       'openFolder',
       'openFile'
-    ])
+    ]),
+    viewFile (uri) {
+      this.openFile(uri)
+      this.$router.push({ name: 'File Viewer' })
+    }
   },
 
   filters: {
-    filetype2mdi: function (value) {
+    filetype2materialIcon: function (value) {
       switch (value) {
         case 'font':
           return 'text_format'

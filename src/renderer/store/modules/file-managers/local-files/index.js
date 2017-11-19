@@ -1,12 +1,17 @@
-import { openDirectory } from '@/services/local-files/project'
-import { openFolder } from '@/services/local-files/folder'
+import {
+  openProject,
+  openFolder
+} from '@/services/local-files'
 import {
   getThumbnailByExtension,
   getFileType,
   isDirectory,
   isFile
 } from '@/utils/files'
+import { supportedFileSchema } from '../validations'
+import validate from '@/utils/validate'
 import { join, parse } from 'path'
+import { find, last } from 'lodash'
 
 const split2FoldersFiles = (content, source) => {
   return {
@@ -21,7 +26,7 @@ const split2FoldersFiles = (content, source) => {
       }),
     files: content.filter(file => isFile(join(source, file)))
       .map(file => {
-        let {ext, type} = getFileType(join(source, file))
+        let { ext, type } = getFileType(join(source, file))
         return {
           name: file,
           uri: new URL(join(source, file), 'file://').href,
@@ -58,7 +63,7 @@ export default {
       if (uri) {
         open(openFolder, uri.replace('file://', ''))
       } else {
-        open(openDirectory, path)
+        open(openProject, path)
       }
     },
 
@@ -86,8 +91,19 @@ export default {
       commit('fileManagers/CLOSE_FOLDER', uri, { root: true })
     },
 
-    openFile () {
-      Error('not yet implemented')
+    openFile ({ state, rootState, commit }, uri) {
+      const FMcommit = (mutationType, payload) => commit(`fileManagers/${mutationType}`, payload, { root: true })
+
+      FMcommit('OPENING]loading')
+      if (uri.includes('file://')) {
+        let file = find(rootState['fileManagers'].files, ['uri', uri])
+        if (validate(file, supportedFileSchema)) FMcommit('OPENING_FILE]finish', file)
+        else FMcommit('OPENING]cancel', `file ${file.type} is not yet supported with extension ${last(uri.split('.'))}`)
+      } else FMcommit('OPENING]cancel', `uri is not local-file, ${uri}`)
+    },
+
+    closeFile ({ state, commit }, uri) {
+      commit('fileManagers/CLOSE_FILE', uri, { root: true })
     }
   }
 }

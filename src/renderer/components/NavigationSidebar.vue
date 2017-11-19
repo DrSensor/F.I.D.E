@@ -46,6 +46,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { collection as _, omit } from 'lodash'
 
 export default {
@@ -62,27 +63,41 @@ export default {
     }
   },
 
+  computed: {
+    ...mapState('fileManagers', [ 'openedFile' ])
+  },
+
+  watch: {
+    toggle: function () {
+      this.draw = !this.draw
+    },
+    openedFile: function (val) {
+      this.updateNavigation()
+    }
+  },
+
+  methods: {
+    updateNavigation () {
+      let list = _.filter(this.$router.options.routes, 'meta.icon')
+
+      // save memory by removing unused key
+      list = _.map(list, obj => {
+        return omit(obj, ['component', 'children', 'beforeEnter'])
+      })
+
+      if (!this.openedFile) list = _.reject(list, obj => obj.name === 'File Viewer')
+      this.items = list
+    }
+  },
+
   created () {
     setInterval(() => {
       this.timenow = new Date(Date.now()).toLocaleTimeString()
     }, 500)
   },
 
-  watch: {
-    toggle: function () {
-      this.draw = !this.draw
-    }
-  },
-
   mounted () {
-    let list = _.filter(this.$router.options.routes, 'meta.icon')
-
-    // save memory by removing unused key
-    list = _.map(list, obj => {
-      return omit(obj, ['component', 'children', 'beforeEnter'])
-    })
-
-    this.items.push(...list)
+    this.updateNavigation()
   }
 }
 </script>

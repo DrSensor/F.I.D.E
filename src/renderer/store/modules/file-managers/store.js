@@ -3,6 +3,7 @@ import { orderBy } from 'lodash'
 const STORE_STATE = {
   opening: false,
   openedProject: null,
+  openedFile: null,
   folders: [],
   files: [],
   history: [],

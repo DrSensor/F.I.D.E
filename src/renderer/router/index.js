@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from '@/store'
 
 Vue.use(Router)
 
@@ -16,11 +17,16 @@ export default new Router({
       }
     },
     {
-      path: '/view',
-      name: 'View File',
+      path: '/viewer',
+      name: 'File Viewer',
       component: () => Page('FileViewer'),
       meta: {
         icon: 'pageview'
+      },
+      beforeEnter: (to, from, next) => {
+        let openedFile = store.state.fileManagers.openedFile
+        if (!openedFile) next('/explorer')
+        else next(to.params.path)
       }
     },
     {

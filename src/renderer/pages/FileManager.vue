@@ -45,6 +45,11 @@ export default {
       contents: null
     }
   },
+  watch: {
+    grouped: function (val) {
+      this.sortBy = this.grouped ? 'type' : 'name'
+    }
+  },
 
   methods: {
     ...mapActions('fileManagers/localFiles', [

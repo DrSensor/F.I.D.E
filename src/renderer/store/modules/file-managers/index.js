@@ -16,7 +16,7 @@ files.keys().forEach(key => {
   var modulename = key.split(path.sep)
   var filename = modulename[modulename.length - 1]
   modulename = modulename.slice(1, modulename.length - 1)
-  if (modulename.length === 1 && filename === 'index.js') {
+  if (modulename.length === 1 && filename === 'index.js' && modulename[0] !== '_') {
     modulename = camelCase(modulename[0])
     modules[modulename] = files(key).default
   }
