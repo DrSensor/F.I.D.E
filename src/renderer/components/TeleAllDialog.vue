@@ -3,10 +3,10 @@
     <h5>{{title}}</h5>
     <v-tabs-items>
       <v-tabs-content id="Telemetry">
-        <Telemetry />
+        <Telemetry @set="$emit('set')" />
       </v-tabs-content>
       <v-tabs-content id="Telecommand">
-        <Telecommand />
+        <Telecommand @set="$emit('set')" />
       </v-tabs-content>
     </v-tabs-items>
 
@@ -26,6 +26,9 @@
 <script>
 export default {
   name: 'TelethingDialog',
+  model: {
+    event: 'tab'
+  },
   components: {
     Telecommand: () => import('./TelecommandChooser'),
     Telemetry: () => import('./TelemetryChooser')
@@ -33,6 +36,11 @@ export default {
   data () {
     return {
       title: ''
+    }
+  },
+  watch: {
+    title: function (val) {
+      this.$emit('tab', val)
     }
   }
 }

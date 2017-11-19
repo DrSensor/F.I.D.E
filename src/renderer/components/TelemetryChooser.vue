@@ -14,11 +14,11 @@
                   :rules="telemetryNameRules"
                   :hint="markdown('e.g: __temperature__')"
                   label="quantity/variable name"
-                  required
+                  persistent-hint required
     ></v-text-field>
 
     <v-btn color="primary" :disabled="!valid" @click.native="watch()">
-      Watch Topic
+      Set
     </v-btn>
 
     <template v-if="valid">
@@ -33,8 +33,9 @@
       <span>Subscribed Topic</span>
       <template v-if="!hideSubscribedTopic">
         <v-text-field v-model="topic"
+                      :rules="topicRules"
                       class="topic"
-                      auto-grow autofocus counter readonly
+                      auto-grow autofocus
         ></v-text-field>
       </template>
       <br/>
@@ -43,7 +44,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { mapGetters, mapState, mapMutations } from 'vuex'
 import { find } from 'lodash'
 import showdown from 'showdown'
 
@@ -54,6 +55,7 @@ export default {
   data () {
     let regexThingName = /[-_\w\d]+/
     let regexTelemetryName = /[a-z]+/
+    let regexTopic = /^(([\w/][\w-_]+)|[+])(([/][\w-]+)|[/][+])*([/][\w-]+|[/][#])$/
     return {
       valid: false,
       thingName: '',
@@ -63,6 +65,9 @@ export default {
       telemetryName: '',
       telemetryNameRules: [
         str => regexTelemetryName.test(str) || 'only lower case character allowed'
+      ],
+      topicRules: [
+        str => regexTopic.test(str) || 'topic string invalid'
       ],
       hideSubscribedTopic: true,
       subscribedTopic: ''
@@ -78,7 +83,7 @@ export default {
     }),
     topic: {
       get: function () {
-        return find(this.things, { name: this.thingName }).topic + '/' + this.telemetryName
+        return this.subscribedTopic || find(this.things, { name: this.thingName }).topic + '/' + this.telemetryName
       },
       set: function (value) {
         this.subscribedTopic = value
@@ -86,9 +91,12 @@ export default {
     }
   },
   methods: {
+    ...mapMutations({
+      addTopic: 'SUBSCRIBE_TOPIC]add'
+    }),
     watch () {
       this.$emit('set')
-      this.$store.commit('SUBSCRIBE_TOPIC]add', this.topic)
+      this.addTopic(this.topic)
     },
     markdown: text => markdown.makeHtml(text)
   }

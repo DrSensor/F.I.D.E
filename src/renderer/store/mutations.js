@@ -3,10 +3,13 @@ const mutations = {
     state.error_detail = payload
   },
   'SUBSCRIBE_TOPIC]add' (state, topic) {
-    state.subscribedTopics += [topic]
+    state.subscribedTopics.push(topic)
   },
   'PUBLISH_TOPIC]add' (state, topic) {
-    state.publishedTopics += [topic]
+    state.publishedTopics.push(topic)
+  },
+  'ANNOTATION]add' (state, annotation) {
+    state.annotations.push(annotation)
   }
 }
 
