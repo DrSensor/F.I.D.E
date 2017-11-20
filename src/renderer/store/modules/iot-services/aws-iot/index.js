@@ -25,6 +25,9 @@ export default {
       state.authenticated = !isEmpty(payload.endpointAddress)
       state.endpoint = payload.endpointAddress || 'localhost'
       state.error = payload.error
+      let brokerList = JSON.parse(window.sessionStorage.getItem('broker')) || {}
+      brokerList.awsIot = state.endpoint
+      window.sessionStorage.setItem('broker', JSON.stringify(brokerList))
     }
   },
 
@@ -36,8 +39,9 @@ export default {
       try {
         const endpoint = await iot.describeEndpoint().promise()
         options.endpoint = endpoint.endpointAddress
-        window.localStorage.setItem('aws', JSON.stringify(options))
+        window.secureStorage.setItem('awsIot', JSON.stringify(options))
         commit('AUTHENTICATE]finish', endpoint)
+        await dispatch('listThings')
         return endpoint.endpointAddress
       } catch (error) {
         commit('AUTHENTICATE]finish', { error: error.message })

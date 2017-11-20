@@ -6,6 +6,8 @@ import App from './App'
 import router from './router'
 import store from './store'
 
+import '@/services/security'
+
 Vue.use(Vuetify)
 
 Vue.http = Vue.prototype.$http = axios

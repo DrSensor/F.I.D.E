@@ -36,7 +36,7 @@
 import { mapActions, mapState } from 'vuex'
 import { isEmpty } from 'lodash'
 
-const opts = JSON.parse(window.localStorage.getItem('aws')) || {}
+const opts = JSON.parse(window.secureStorage.getItem('awsIot')) || {}
 
 export default {
   name: 'AWSRegForm',

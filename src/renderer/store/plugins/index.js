@@ -2,6 +2,7 @@
  * The file enables `@/store/index.js` to import all vuex modules
  * in a one-shot manner. There should not be any reason to edit this file.
  */
+import createPersistedState from 'vuex-persistedstate'
 
 const files = require.context('.', true, /\.js$/)
 const path = require('path')
@@ -16,5 +17,8 @@ files.keys().forEach(key => {
     plugins.push(files(key).default)
   }
 })
+
+let persistenceState = createPersistedState({ storage: window.sessionStorage })
+plugins.push(persistenceState)
 
 export default plugins

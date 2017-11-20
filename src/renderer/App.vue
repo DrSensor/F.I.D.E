@@ -13,6 +13,8 @@
 </template>
 
 <script>
+import { isEmpty } from 'lodash'
+
 export default {
   name: 'FIDE',
   components: {
@@ -28,6 +30,15 @@ export default {
       logoutHover: false,
       hideApikey: true,
       apikey: window.localStorage.getItem('apikey')
+    }
+  },
+
+  mounted () {
+    let brokerList = JSON.parse(window.sessionStorage.getItem('broker')) || {}
+    if (isEmpty(this.$store.state.iotServices.things)) {
+      for (let broker in brokerList) {
+        this.$store.dispatch(`iotServices/${broker}/listThings`)
+      }
     }
   }
 }

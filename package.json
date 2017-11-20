@@ -73,7 +73,9 @@
     "aws-sdk": "^2.150.0",
     "axios": "^0.17.1",
     "bignumber.js": "^4.1.0",
+    "crypto-js": "^3.1.9-1",
     "file-type": "^7.2.0",
+    "fingerprintjs2": "^1.5.1",
     "js-data": "^3.0.1",
     "js-data-nedb": "^1.0.0",
     "lodash": "^4.17.4",
@@ -82,11 +84,13 @@
     "p5": "^0.5.16",
     "pdfjs-dist": "^2.0.0",
     "read-chunk": "^2.1.0",
+    "secure-web-storage": "^1.0.2",
     "showdown": "^1.8.2",
     "vue": "^2.5.5",
     "vue-router": "^3.0.1",
     "vuetify": "0.16.9",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "vuex-persistedstate": "^2.3.2"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
