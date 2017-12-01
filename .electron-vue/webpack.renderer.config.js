@@ -50,7 +50,7 @@ let rendererConfig = {
         loader: ['style-loader', 'css-loader', 'stylus-loader', {
           loader: 'vuetify-loader',
           options: {
-            theme: resolve('./src/renderer/assets/stylus/theme.styl')
+            theme: resolve('./src/renderer/assets/styles/theme.styl')
           }
         }]
       },
