@@ -6,7 +6,7 @@ import App from './App'
 import router from './router'
 import store from './store'
 
-import '@/services/security'
+import '@/utils/security'
 
 Vue.use(Vuetify)
 

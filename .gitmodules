@@ -1,0 +1,3 @@
+[submodule "js-data-autosql"]
+	path = external_modules/js-data-autosql
+	url = git://github.com/DrSensor/js-data-autosql.git

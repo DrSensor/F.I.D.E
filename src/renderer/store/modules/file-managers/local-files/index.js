@@ -47,7 +47,7 @@ export default {
         openFunc(path).then(({ content, source }) => {
           let pathsByType = split2FoldersFiles(content, source)
           let projectDetail = {
-            projectName: parse(source).name,
+            name: parse(source).name,
             origin: 'local-files',
             uri: new URL(source, 'file://').href
           }

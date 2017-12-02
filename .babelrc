@@ -79,6 +79,9 @@
         },
         "@/shapes": {
           "transform": "@/shapes/${member}.shape"
+        },
+        "@/components": {
+          "transform": "@/components/${member}"
         }
       }
     ]

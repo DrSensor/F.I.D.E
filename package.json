@@ -5,6 +5,7 @@
   "description": "A desktop application for manage and explore IoT Device in the Field",
   "license": "Apache-2.0",
   "main": "./dist/electron/main.js",
+  "private": true,
   "scripts": {
     "build": "node .electron-vue/build.js && electron-builder",
     "build:dir": "node .electron-vue/build.js && electron-builder --dir",
@@ -12,15 +13,17 @@
     "build:web": "cross-env BUILD_TARGET=web node .electron-vue/build.js",
     "dev": "webpack-dashboard -- node .electron-vue/dev-runner.js",
     "dev:plain": "node .electron-vue/dev-runner.js",
-    "e2e": "npm run pack && mocha test/e2e",
+    "e2e": "yarn pack && mocha test/e2e",
     "lint": "eslint --ext .js,.vue -f ./node_modules/eslint-friendly-formatter src test",
     "lint:fix": "eslint --ext .js,.vue -f ./node_modules/eslint-friendly-formatter --fix src test",
-    "pack": "npm run pack:main && npm run pack:renderer",
+    "pack": "yarn pack:main && yarn pack:renderer",
     "pack:main": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.main.config.js",
     "pack:renderer": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.renderer.config.js",
-    "test": "npm run unit && npm run e2e",
+    "test": "yarn unit && yarn e2e",
     "unit": "karma start test/unit/karma.conf.js",
-    "postinstall": "npm run lint:fix"
+    "postinstall": "yarn lint:fix && electron-builder install-app-deps",
+    "preinstall": "npx use-yarn",
+    "preuninstall": "npx use-yarn"
   },
   "build": {
     "productName": "F.I.D.E",
@@ -69,6 +72,10 @@
       ]
     }
   },
+  "workspaces": [
+    "*",
+    "external_modules/*"
+  ],
   "dependencies": {
     "aws-sdk": "^2.150.0",
     "axios": "^0.17.1",
@@ -77,8 +84,9 @@
     "file-type": "^7.2.0",
     "fingerprintjs2": "^1.5.1",
     "js-data": "^3.0.1",
-    "js-data-nedb": "^1.0.0",
+    "js-data-sql": "^1.0.1",
     "lodash": "^4.17.4",
+    "luxon": "^0.2.2",
     "mime": "^2.0.3",
     "mqtt-pattern": "^1.1.0",
     "p5": "^0.5.16",
@@ -86,6 +94,7 @@
     "read-chunk": "^2.1.0",
     "secure-web-storage": "^1.0.2",
     "showdown": "^1.8.2",
+    "sqlite3": "^3.1.13",
     "vue": "^2.5.5",
     "vue-router": "^3.0.1",
     "vuetify": "0.16.9",
@@ -148,6 +157,7 @@
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
     "url-loader": "^0.5.9",
+    "use-yarn": "^2.0.1",
     "vue-html-loader": "^1.2.4",
     "vue-loader": "^12.2.2",
     "vue-style-loader": "^3.0.1",

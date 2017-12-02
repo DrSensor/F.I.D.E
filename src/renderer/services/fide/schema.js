@@ -2,18 +2,18 @@ import { Schema } from 'js-data'
 
 const file = {
   type: 'object',
-  required: ['name', 'type', 'origin', 'relativePath'],
+  required: ['name', 'type', 'origin', 'uri'],
   properties: {
     id: {
       description: 'The unique identifier for a file',
-      type: 'number'
+      type: 'integer'
     },
     name: {
       type: 'string'
     },
     type: {
       type: 'string',
-      pattern: /Electronics Schematic|Design Blueprint/i
+      pattern: /Electronics Schematic|Design Blueprint|^$/i
     },
     origin: {
       description: 'Where the file come from (e.g GDrive or local-files)',
@@ -35,7 +35,7 @@ const annotation = {
 
   description: 'Schema for describing Annotation object.',
   type: 'object',
-  required: ['id', 'name', 'broker', 'topic', 'topicPattern'],
+  required: ['name', 'type'],
   properties: {
     id: {
       description: 'The unique identifier for a annotation',
@@ -51,10 +51,11 @@ const annotation = {
     },
     dimension: {
       description: 'Dimension of the annotation shape (e.g [0,0,50,50] while it represent the value of [x,y,width,height]',
-      type: 'array',
-      items: {
-        type: 'number'
-      }
+      type: 'string'
+      // type: 'array',
+      // items: {
+      //   type: 'number'
+      // }
     }
   }
 }

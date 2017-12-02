@@ -4,7 +4,7 @@
       <v-list-tile avatar>
         <!-- avatar -->
         <v-list-tile-content>
-          <v-list-tile-title>{{this.$route.name}}</v-list-tile-title>
+          <v-list-tile-title>{{openedContent}}</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
     </v-list>
@@ -47,7 +47,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { collection as _, omit } from 'lodash'
+import { collection as _, omit, last, isEmpty } from 'lodash'
 
 export default {
   name: 'NavigationSidebar',
@@ -64,7 +64,19 @@ export default {
   },
 
   computed: {
-    ...mapState('fileManagers', [ 'openedFile' ])
+    ...mapState('fileManagers', [ 'openedFile', 'history', 'openedProject' ]),
+    openedContent: function () {
+      switch (this.$route.name) {
+        case 'File Manager':
+          if (!isEmpty(this.history)) return last(this.history).name
+          else if (!isEmpty(this.openedProject)) return this.openedProject.name
+          else return this.$route.name
+        case 'File Viewer':
+          return this.openedFile.name || this.$route.name
+        default:
+          return this.$route.name
+      }
+    }
   },
 
   watch: {
