@@ -46,8 +46,7 @@ export default {
       'openFile'
     ]),
     viewFile (uri) {
-      this.openFile(uri)
-      this.$router.push({ name: 'File Viewer' })
+      this.openFile(uri).then(success => this.$router.push({ name: 'File Viewer' }))
     }
   },
 
@@ -63,9 +62,9 @@ export default {
         case 'image':
           return 'photo'
         case 'audio':
-          return `${value}track`
+          return 'audiotrack'
         case 'video':
-          return `${value}cam`
+          return 'videocam'
         case 'unknown':
           return `insert_drive_file`
         default:

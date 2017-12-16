@@ -27,7 +27,7 @@
       <ImageViewer :source="openedFile.uri" />
     </annotator>
 
-    <v-speed-dial fixed bottom right hover direction="left" v-model="annotateMode.dialOpen">
+    <v-speed-dial fixed bottom right hover direction="left" v-model="annotateMode.dialOpen" v-if="openedFile.registerAs">
       <v-btn slot="activator" :color="annotateMode.color || edBtn.color" fab v-model="annotateMode.dialOpen">
         <v-icon>{{annotateMode.icon}}</v-icon>
         <v-icon small>close</v-icon>
@@ -79,6 +79,7 @@ export default {
     ImageViewer: FvViewerImage,
     ThingDialog: TeleAllDialog
   },
+
   data () {
     return {
       openThingDialog: false,
@@ -96,6 +97,11 @@ export default {
       }
     }
   },
+
+  mounted () {
+    this.registerAs(this.openedFile.registerAs, false)
+  },
+
   watch: {
     annotateMode: {
       handler (val, oldVal) { // handle annotate button style
@@ -112,6 +118,7 @@ export default {
       deep: true
     }
   },
+
   computed: {
     ...mapState('fileManagers', ['openedFile']),
     tab: {
@@ -125,6 +132,7 @@ export default {
       }
     }
   },
+
   methods: {
     ...mapActions('iotServices/awsIot', [
       'listThings'
@@ -133,7 +141,8 @@ export default {
       'registerFileAs',
       'addAnnotation'
     ]),
-    registerAs (type) {
+    registerAs (type, store = true) {
+      type = type ? type.charAt(0) : ''
       switch (type.charAt(0)) {
         case 'E':
           this.edBtn.color = 'teal'
@@ -145,8 +154,8 @@ export default {
           this.edBtn.color = edBtn.color
           break
       }
-      this.edBtn.icon = type || edBtn.icon
-      this.registerFileAs(type).then(result => console.log(result))
+      this.edBtn.icon = type.length > 0 ? type : edBtn.icon
+      if (store) this.registerFileAs(type).then(result => this.$forceUpdate()) // WARN: force to update because speed dial not show/hide properly
       // this.addAnnotation({
       //   name: 'lala',
       //   type: 'Rectangle',

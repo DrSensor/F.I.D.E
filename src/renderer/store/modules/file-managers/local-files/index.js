@@ -1,3 +1,5 @@
+import fide from '@/services/fide'
+
 import {
   openProject,
   openFolder
@@ -91,14 +93,20 @@ export default {
       commit('fileManagers/CLOSE_FOLDER', uri, { root: true })
     },
 
-    openFile ({ state, rootState, commit }, uri) {
+    async openFile ({ state, rootState, commit }, uri) {
       const FMcommit = (mutationType, payload) => commit(`fileManagers/${mutationType}`, payload, { root: true })
+      const Open = async (file) => {
+        if (validate(file, supportedFileSchema)) {
+          const record = await fide.findAll('file', { name: file.name })
+          if (record.length > 0) file.registerAs = record[0].type
+          FMcommit('OPENING_FILE]finish', file)
+        } else FMcommit('OPENING]cancel', `file ${file.type} is not yet supported with extension ${last(uri.split('.'))}`)
+      }
 
       FMcommit('OPENING]loading')
       if (uri.includes('file://')) {
         let file = find(rootState['fileManagers'].files, ['uri', uri])
-        if (validate(file, supportedFileSchema)) FMcommit('OPENING_FILE]finish', file)
-        else FMcommit('OPENING]cancel', `file ${file.type} is not yet supported with extension ${last(uri.split('.'))}`)
+        await Open(file)
       } else FMcommit('OPENING]cancel', `uri is not local-file, ${uri}`)
     },
 

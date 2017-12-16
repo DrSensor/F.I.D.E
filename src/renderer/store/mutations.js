@@ -1,10 +1,13 @@
+import { isEmpty } from 'lodash'
+
 const mutations = {
   'ERROR' (state, payload) {
     state.error_detail = payload
   },
 
   'REGISTER_FILE' (state, type) {
-    state['fileManagers'].openedFile.registerAs = type
+    if (isEmpty(type)) delete state['fileManagers'].openedFile.registerAs
+    else state['fileManagers'].openedFile.registerAs = type
   },
 
   'SUBSCRIBE_TOPIC]add' (state, topic) {
