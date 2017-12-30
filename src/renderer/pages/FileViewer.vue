@@ -60,7 +60,13 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import { Annotator, TelecommandChooser, FvViewerImage, TeleAllDialog } from '@/components'
+import {
+  // Annotator,
+  TelecommandChooser,
+  FvViewerImage,
+  TeleAllDialog
+} from '@/components'
+import Annotator from 'vue-annotator'
 
 // default value
 let edBtn = {
@@ -137,10 +143,12 @@ export default {
     ...mapActions('iotServices/awsIot', [
       'listThings'
     ]),
+
     ...mapActions([
       'registerFileAs',
       'addAnnotation'
     ]),
+
     registerAs (type, store = true) {
       type = type ? type.charAt(0) : ''
       switch (type.charAt(0)) {
@@ -163,21 +171,30 @@ export default {
       //   data: null
       // })
     },
+
     cancelAnnotation () {
       this.annotateMode['add'] = this.annotateMode['edit'] = this.annotateMode.on = false
       this.annotateMode.icon = annotateMode.icon
       this.annotateMode.color = edBtn.color
     },
+
     deleteAnnotation () {
     },
+
     annotationUpdated (annotations) {
     },
+
     annotationAdded (annotation) {
       this.openThingDialog = false
     }
   }
 }
 </script>
+
+<style>
+@import '~vue-annotator/dist/vue-annotator.css'
+</style>
+
 
 <style scoped>
 #viewer {

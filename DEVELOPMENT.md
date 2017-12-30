@@ -30,6 +30,23 @@ This project is hugely depend on:
 - EChart
 - SocketIO and `flask-socketio`
 
+## Maintained/Watched Dependency
+This project use some of library that have a really high [TF]() and no alternative library with better `TF` score.
+Because of that, there is need to watch and maintain this package:
+- [vue-annotator](https://github.com/DrSensor/vue-annotator)
+- [mqtt-pattern](https://github.com/RangerMauve/mqtt-pattern)
+- [js-data-autosql]()? still there are high chance that I will replace it with [bookshelfjs]()
+<!--  -->
+
+## Some package that have potential
+This is personal list of library/component that can be used in this project.
+- [portal-vue](https://linusborg.github.io/portal-vue/#/guide?id=what-is-portalvue)
+- [vue-svgicon](https://github.com/MMF-FE/vue-svgicon) a workaround if **Vuetify** still not support custom icon
+- [vued3tree](https://github.com/David-Desmaisons/Vue.D3.tree) for visualizing [mqtt topic](http://harizanov.com/2014/09/mqtt-topic-tree-structure-improvements/) and file hierarchy. The good example how it was use is [vuetron](http://vuetron.io/#component-tree)
+- [http-vue-loader](https://github.com/FranckFreiburger/http-vue-loader) for building plugin mechanism with the plugin is in `.vue` format :sunglasses:
+
+For more curated list to do component hunting you can use https://madewithvuejs.com/
+
 ## Style Guide
 This project follow this style guide:
 - use single file components (i.e. *.vue)

@@ -96,6 +96,7 @@
     "showdown": "^1.8.2",
     "sqlite3": "^3.1.13",
     "vue": "^2.5.5",
+    "vue-annotator": "^0.10.0",
     "vue-router": "^3.0.1",
     "vuetify": "0.16.9",
     "vuex": "^3.0.1",
