@@ -21,6 +21,10 @@
       Set
     </v-btn>
 
+    <v-btn color="secondary" @click.native="$emit('close')">
+      Close
+    </v-btn>
+
     <template v-if="valid">
       <br/>
       <v-btn @click.native="hideSubscribedTopic = !hideSubscribedTopic" 

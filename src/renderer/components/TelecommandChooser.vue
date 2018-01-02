@@ -6,7 +6,7 @@
                   v-model="thingName"
                   :rules="thingNameRules"
                   :items="thingsName"
-                  label="thing name" 
+                  label="thing name"
                   :multiple="false" required
     ></v-select>
     <v-text-field prepend-icon="input"
@@ -24,8 +24,12 @@
                   persistent-hint required
     ></v-text-field>
 
-    <v-btn color="secondary" :disabled="!valid" @click.native="watch()">
+    <v-btn color="primary" :disabled="!valid" @click.native="watch()">
       Set
+    </v-btn>
+
+    <v-btn color="secondary" @click.native="$emit('close')">
+      Close
     </v-btn>
 
     <template v-if="valid">

@@ -3,10 +3,10 @@
     <h5>{{title}}</h5>
     <v-tabs-items>
       <v-tabs-content id="Telemetry">
-        <Telemetry @set="$emit('set')" />
+        <Telemetry @set="$emit('set')" @close="$emit('close')" />
       </v-tabs-content>
       <v-tabs-content id="Telecommand">
-        <Telecommand @set="$emit('set')" />
+        <Telecommand @set="$emit('set')" @close="$emit('close')" />
       </v-tabs-content>
     </v-tabs-items>
 

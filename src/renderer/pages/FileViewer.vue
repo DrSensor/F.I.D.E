@@ -1,9 +1,9 @@
 <template>
   <v-container id="viewer" fluid>
 
-    <v-dialog v-model="openThingDialog" max-width="720px" :content-class="dialogColor" lazy scrollable>
+    <v-dialog v-model="openThingDialog" max-width="720px" :content-class="dialogColor" lazy persistent scrollable>
       <v-container>
-        <ThingDialog v-model="tab" @set="annotationAdded()" />
+        <ThingDialog v-model="tab" @set="setThing" @close="openThingDialog = false" />
       </v-container>
     </v-dialog>
 
@@ -23,7 +23,14 @@
       </v-btn>
     </v-speed-dial>
 
-    <annotator :annotating.sync="annotateMode.add" @add="openThingDialog = true" @change="annotationUpdated()">
+    <annotator inertia :minSize="[50, 50]" 
+               :drawing="annotateMode.add" :nointeract="!annotateMode.edit"
+               @select="editAnnotation" @drawdone="addAnnotation"
+               @unselect="selectedAnnotation = null"
+    >
+      <rect class="annotation-box" slot="drawing" />
+      <rect class="annotation-box" slot="annotation" x="100" y="150" width="70" height="50" />
+      <rect class="annotation-box" slot="annotation" x="300" y="150" width="170" height="100" />
       <ImageViewer :source="openedFile.uri" />
     </annotator>
 
@@ -34,10 +41,10 @@
       </v-btn>
 
       <template v-if="annotateMode.on">
-        <v-btn @click.native="cancelAnnotation()" fab large color="secondary">
+        <v-btn @click.native="cancelAnnotation" fab large color="secondary">
           <v-icon>cancel</v-icon>
         </v-btn>
-        <v-btn v-if="!annotateMode.add" @click.native="deleteAnnotation()" fab small color="warning">
+        <v-btn v-if="!annotateMode.add" @click.native="deleteAnnotation" fab small color="warning">
           <v-icon>delete</v-icon>
         </v-btn>
       </template>
@@ -49,7 +56,7 @@
         <v-btn @click.native="annotateMode.edit = true" fab color="secondary">
           <v-icon>edit</v-icon>
         </v-btn>
-        <v-btn @click.native="annotateMode.delete = true" fab color="warning">
+        <v-btn @click.native="deleteAnnotation" fab color="warning">
           <v-icon>delete</v-icon>
         </v-btn>
       </template>
@@ -60,13 +67,12 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import Annotator from 'vue-annotator/src/Annotator'
 import {
-  // Annotator,
   TelecommandChooser,
   FvViewerImage,
   TeleAllDialog
 } from '@/components'
-import Annotator from 'vue-annotator'
 
 // default value
 let edBtn = {
@@ -100,7 +106,8 @@ export default {
         edit: false,
         delete: false,
         on: false
-      }
+      },
+      selectedAnnotation: null
     }
   },
 
@@ -179,20 +186,42 @@ export default {
     },
 
     deleteAnnotation () {
+      this.annotateMode.delete = true
+      this.selectedAnnotation.remove()
+      this.selectedAnnotation = null
+      this.annotateMode.delete = false
+    },
+
+    editAnnotation (rect) {
+      this.selectedAnnotation = rect.node
+      if (this.annotateMode.edit) {
+        this.openThingDialog = true
+      }
+    },
+
+    addAnnotation (rect) {
+      if (this.annotateMode.add) {
+        this.openThingDialog = true
+      }
+    },
+
+    setThing (thing) {
+      if (annotateMode.on) {
+        this.openThingDialog = false
+      }
     },
 
     annotationUpdated (annotations) {
     },
 
     annotationAdded (annotation) {
-      this.openThingDialog = false
     }
   }
 }
 </script>
 
 <style>
-@import '~vue-annotator/dist/vue-annotator.css'
+@import "~vue-annotator/dist/vue-annotator.css";
 </style>
 
 
@@ -209,5 +238,13 @@ export default {
 .E {
   background: url("../assets/icons/E_file.svg");
 }
-</style>
 
+.annotation-box {
+  stroke: limegreen;
+  stroke-width: 3px;
+}
+.annotation-box:hover {
+  stroke: orange;
+  stroke-width: 3px;
+}
+</style>
