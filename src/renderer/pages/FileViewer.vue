@@ -25,7 +25,7 @@
 
     <annotator inertia :minSize="[50, 50]" 
                :drawing="annotateMode.add" :nointeract="!annotateMode.edit"
-               @select="editAnnotation" @drawdone="addAnnotation"
+               @select="editAnnotation" @drawfinish="addAnnotation"
                @unselect="selectedAnnotation = null"
     >
       <rect class="annotation-box" slot="drawing" />
